@@ -1,0 +1,92 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>tv.hd3g</groupId>
+	<artifactId>jobkit</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>Jobkit</name>
+	<url>https://github.com/hdsdi3g/jobkit</url>
+	<description>Execute as SpringBoot module onetime and scheduled Java jobs with dynamic queues and events</description>
+
+	<parent>
+		<groupId>tv.hd3g.commons</groupId>
+		<artifactId>parent</artifactId>
+		<version>2.1.7.RELEASE-7</version>
+		<relativePath />
+	</parent>
+	
+    <properties>
+        <mockito.version>3.3.3</mockito.version>
+    </properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>tv.hd3g</groupId>
+			<artifactId>jobkit-engine</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>tv.hd3g</groupId>
+			<artifactId>processlauncher</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+	</dependencies>
+
+	<organization>
+		<name>hd3g.tv</name>
+		<url>https://hd3g.tv</url>
+	</organization>
+	<developers>
+		<developer>
+			<name>hdsdi3g</name>
+			<email>admin@hd3g.tv</email>
+			<organization>hd3g.tv</organization>
+			<organizationUrl>https://hd3g.tv</organizationUrl>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:https://github.com/hdsdi3g/jobkit.git</connection>
+		<developerConnection>scm:git:https://github.com/hdsdi3g/jobkit.git</developerConnection>
+		<url>https://github.com/hdsdi3g</url>
+		<tag>HEAD</tag>
+	</scm>
+	<issueManagement>
+		<url>https://github.com/hdsdi3g/jobkit/issues</url>
+		<system>GitHub</system>
+	</issueManagement>
+	<licenses>
+		<license>
+			<name>GNU Lesser General Public License, Version 3</name>
+			<url>https://www.gnu.org/licenses/lgpl.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>2.0.0</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>add-third-party</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.basedir}</outputDirectory>
+							<useMissingFile>true</useMissingFile>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>

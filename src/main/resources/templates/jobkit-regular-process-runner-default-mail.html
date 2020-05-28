@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<title th:text="#{jobkit.regularprocessrunner.mailtitle}"></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<h1 th:text="#{jobkit.regularprocessrunner.mailtitle}"></h1>
+	<p th:text="#{jobkit.regularprocessrunner.okexec(serviceName, execName)}"></p>
+    <small
+        th:if="${not #strings.isEmpty(comment)}" 
+        th:text="#{jobkit.regularprocessrunner.description(comment))}"></small>
+    <hr />
+    <p th:text="#{jobkit.regularprocessrunner.sendedby"></p>
+</body>
+</html>
