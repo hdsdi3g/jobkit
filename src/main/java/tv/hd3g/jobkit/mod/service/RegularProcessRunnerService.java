@@ -100,7 +100,7 @@ public class RegularProcessRunnerService implements InitializingBean, Disposable
 					executableFinder.get(runnerConf.getCommandLine().substring(0, firstSpacePos).trim());
 				}
 			} catch (final FileNotFoundException e) {
-				log.fatal("Check service \"" + runnerConf.getName() + "\" configuration", e);
+				log.fatal("Check service \"{}\" configuration", runnerConf.getName(), e);
 				onErrors.add(runnerConf);
 			}
 		});

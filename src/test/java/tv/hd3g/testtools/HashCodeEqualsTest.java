@@ -51,7 +51,7 @@ public abstract class HashCodeEqualsTest {// NOSONAR
 			assertNotNull(instance);
 		}
 		for (int j = 1; j < instances.length; j++) {
-			assertTrue(instances[0].equals(instances[j]));
+			assertEquals(instances[0], instances[j]);
 		}
 	}
 

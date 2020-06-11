@@ -40,7 +40,7 @@ class BackgroundServiceIdDtoTest extends HashCodeEqualsTest {
 	}
 
 	@Nested
-	public class ItemTest {
+	class ItemTest {
 		UUID uuid;
 		String serviceName;
 		String servicePoolName;

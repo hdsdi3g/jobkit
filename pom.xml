@@ -17,10 +17,10 @@
 		<version>2.1.7.RELEASE-7</version>
 		<relativePath />
 	</parent>
-	
-    <properties>
-        <mockito.version>3.3.3</mockito.version>
-    </properties>
+
+	<properties>
+		<mockito.version>3.3.3</mockito.version>
+	</properties>
 
 	<dependencies>
 		<dependency>
