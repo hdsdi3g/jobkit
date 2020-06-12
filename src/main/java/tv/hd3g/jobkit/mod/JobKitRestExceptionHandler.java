@@ -36,7 +36,7 @@ import tv.hd3g.jobkit.mod.exception.JobKitRestException;
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
-public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+public class JobKitRestExceptionHandler extends ResponseEntityExceptionHandler {
 	private static Logger log = LogManager.getLogger();
 
 	@ExceptionHandler(JobKitRestException.class)

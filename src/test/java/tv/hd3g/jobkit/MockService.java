@@ -31,7 +31,7 @@ public class MockService {
 
 		@Bean
 		@Primary
-		public SendMailService sendMailService() {
+		public SendMailService sendMailServiceMock() {
 			return Mockito.mock(SendMailService.class);
 		}
 
@@ -79,7 +79,7 @@ public class MockService {
 
 		@Bean
 		@Primary
-		public SendMailService sendMailService() {
+		public SendMailService sendMailServiceMock() {
 			return Mockito.mock(SendMailService.class);
 		}
 
