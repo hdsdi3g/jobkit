@@ -44,7 +44,7 @@ import tv.hd3g.processlauncher.ProcesslauncherBuilder;
 import tv.hd3g.processlauncher.cmdline.ExecutableFinder;
 
 @Service
-public class RegularProcessRunnerService implements InitializingBean, DisposableBean {
+public class RegularProcessRunnerServiceImpl implements InitializingBean, DisposableBean {
 
 	private static final Logger log = LogManager.getLogger();
 
@@ -61,7 +61,7 @@ public class RegularProcessRunnerService implements InitializingBean, Disposable
 	@Autowired
 	private BackgroundServiceId backgroundServiceId;
 	@Autowired
-	private ExecFactory execFactory;
+	private ExecFactoryService execFactoryService;
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
@@ -336,7 +336,7 @@ public class RegularProcessRunnerService implements InitializingBean, Disposable
 			commandLine = runnerConf.getCommandLine().substring(firstSpacePos).trim();
 		}
 
-		final var exec = execFactory.createNewExec(execName);
+		final var exec = execFactoryService.createNewExec(execName);
 		exec.getParameters().clear().addBulkParameters(commandLine);
 
 		final Task task = new Task(runnerConf, exec);

@@ -20,7 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
 import tv.hd3g.commons.mailkit.SendMailService;
 import tv.hd3g.jobkit.engine.JobKitEngine;
 import tv.hd3g.jobkit.mod.BackgroundServiceId;
-import tv.hd3g.jobkit.mod.service.ExecFactory;
+import tv.hd3g.jobkit.mod.service.ExecFactoryService;
 import tv.hd3g.processlauncher.cmdline.ExecutableFinder;
 
 public class MockService {
@@ -61,8 +61,8 @@ public class MockService {
 
 		@Bean
 		@Primary
-		public ExecFactory execFactory() {
-			return Mockito.mock(ExecFactory.class);
+		public ExecFactoryService execFactoryService() {
+			return Mockito.mock(ExecFactoryService.class);
 		}
 
 	}
@@ -111,7 +111,7 @@ public class MockService {
 		@Autowired
 		ExecutableFinder executableFinder;
 		@Autowired
-		ExecFactory execFactory;
+		ExecFactoryService execFactoryService;
 
 		@Test
 		void test() {
@@ -120,7 +120,7 @@ public class MockService {
 			assertTrue(MockUtil.isMock(jobKitEngine));
 			assertTrue(MockUtil.isMock(backgroundServiceId));
 			assertTrue(MockUtil.isMock(executableFinder));
-			assertTrue(MockUtil.isMock(execFactory));
+			assertTrue(MockUtil.isMock(execFactoryService));
 		}
 	}
 
@@ -132,13 +132,13 @@ public class MockService {
 		@Autowired
 		ExecutableFinder executableFinder;
 		@Autowired
-		ExecFactory execFactory;
+		ExecFactoryService execFactoryService;
 
 		@Test
 		void test() {
 			assertTrue(MockUtil.isMock(sendMailService));
 			assertTrue(MockUtil.isMock(executableFinder));
-			assertFalse(MockUtil.isMock(execFactory));
+			assertFalse(MockUtil.isMock(execFactoryService));
 		}
 	}
 

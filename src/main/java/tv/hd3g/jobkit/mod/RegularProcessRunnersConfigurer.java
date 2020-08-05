@@ -280,7 +280,7 @@ public class RegularProcessRunnersConfigurer {
 	}
 
 	/**
-	 * Beware of correctly start RegularProcessRunnerService (for set servicesDto) before call makeConfigurationDto.
+	 * Beware of correctly start RegularProcessRunnerServiceImpl (for set servicesDto) before call makeConfigurationDto.
 	 */
 	public RegularProcessRunnerListDto makeConfigurationDto() {
 		return new RegularProcessRunnerListDto(servicesDto, execPath, senderReference);

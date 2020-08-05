@@ -15,18 +15,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import tv.hd3g.jobkit.mod.service.ExecFactoryService.FileNotFoundRuntimeException;
+import tv.hd3g.jobkit.mod.service.ExecFactoryServiceImpl.FileNotFoundRuntimeException;
 import tv.hd3g.processlauncher.cmdline.ExecutableFinder;
 import tv.hd3g.processlauncher.tool.ExecutableTool;
 
 @SpringBootTest
 @ActiveProfiles({ "ExecFactoryMock" })
-class ExecFactoryTest {
+class ExecFactoryServiceTest {
 
 	@Autowired
 	ExecutableFinder executableFinder;
 	@Autowired
-	ExecFactory execFactory;
+	ExecFactoryService execFactoryService;
 
 	@BeforeEach
 	void init() {
@@ -35,7 +35,7 @@ class ExecFactoryTest {
 
 	@Test
 	void testCreateNewExecString() {
-		final var exec = execFactory.createNewExec("java");
+		final var exec = execFactoryService.createNewExec("java");
 		assertNotNull(exec);
 		assertEquals("java", exec.getExecutableName());
 	}
@@ -43,7 +43,7 @@ class ExecFactoryTest {
 	@Test
 	void testCreateNewExecString_fail() throws FileNotFoundException {
 		when(executableFinder.get(eq("java"))).thenThrow(new FileNotFoundException("(only for test)"));
-		assertThrows(FileNotFoundRuntimeException.class, () -> execFactory.createNewExec("java"));
+		assertThrows(FileNotFoundRuntimeException.class, () -> execFactoryService.createNewExec("java"));
 	}
 
 	@Test
@@ -51,7 +51,7 @@ class ExecFactoryTest {
 		final var executableTool = Mockito.mock(ExecutableTool.class);
 		when(executableTool.getExecutableName()).thenReturn("java");
 
-		final var exec = execFactory.createNewExec(executableTool);
+		final var exec = execFactoryService.createNewExec(executableTool);
 		assertNotNull(exec);
 		assertEquals("java", exec.getExecutableName());
 	}
@@ -61,7 +61,7 @@ class ExecFactoryTest {
 		when(executableFinder.get(eq("java"))).thenThrow(new FileNotFoundException("(only for test)"));
 		final var executableTool = Mockito.mock(ExecutableTool.class);
 		when(executableTool.getExecutableName()).thenReturn("java");
-		assertThrows(FileNotFoundRuntimeException.class, () -> execFactory.createNewExec(executableTool));
+		assertThrows(FileNotFoundRuntimeException.class, () -> execFactoryService.createNewExec(executableTool));
 	}
 
 }

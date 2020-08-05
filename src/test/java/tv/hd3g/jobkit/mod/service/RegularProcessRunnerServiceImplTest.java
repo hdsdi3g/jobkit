@@ -53,8 +53,8 @@ import tv.hd3g.jobkit.mod.BackgroundServiceId;
 import tv.hd3g.jobkit.mod.RegularProcessRunnersConfigurer;
 import tv.hd3g.jobkit.mod.RegularProcessRunnersConfigurer.RegularProcessRunnerEntry;
 import tv.hd3g.jobkit.mod.RegularProcessRunnersConfigurer.RegularProcessRunnerEntry.AfterExecEntry;
-import tv.hd3g.jobkit.mod.service.RegularProcessRunnerService.Task;
-import tv.hd3g.jobkit.mod.service.RegularProcessRunnerService.Task.ProcessExecutionException;
+import tv.hd3g.jobkit.mod.service.RegularProcessRunnerServiceImpl.Task;
+import tv.hd3g.jobkit.mod.service.RegularProcessRunnerServiceImpl.Task.ProcessExecutionException;
 import tv.hd3g.processlauncher.CapturedStdOutErrTextRetention;
 import tv.hd3g.processlauncher.Exec;
 import tv.hd3g.processlauncher.ProcesslauncherBuilder;
@@ -63,7 +63,7 @@ import tv.hd3g.processlauncher.cmdline.Parameters;
 
 @SpringBootTest
 @ActiveProfiles({ "DefaultMock" })
-class RegularProcessRunnerServiceTest {
+class RegularProcessRunnerServiceImplTest {
 
 	@Autowired
 	ScheduledExecutorService scheduledExecutorService;
@@ -78,19 +78,19 @@ class RegularProcessRunnerServiceTest {
 	@Autowired
 	ExecutableFinder executableFinder;
 	@Autowired
-	ExecFactory execFactory;
+	ExecFactoryService execFactoryService;
 
 	@Captor
 	ArgumentCaptor<Consumer<ProcesslauncherBuilder>> beforeRunCaptor;
 
 	@Autowired
-	RegularProcessRunnerService regularProcessRunnerService;
+	RegularProcessRunnerServiceImpl regularProcessRunnerServiceImpl;
 
 	@BeforeEach
 	void init() {
 		MockitoAnnotations.initMocks(this);
 		Mockito.reset(executableFinder);
-		Mockito.reset(execFactory);
+		Mockito.reset(execFactoryService);
 		Mockito.reset(jobKitEngine);
 		Mockito.reset(sendMailService);
 	}
@@ -100,7 +100,7 @@ class RegularProcessRunnerServiceTest {
 		when(executableFinder.get(anyString())).thenThrow(new FileNotFoundException("(test context)"));
 
 		assertThrows(FileNotFoundException.class, () -> {
-			regularProcessRunnerService.start();
+			regularProcessRunnerServiceImpl.start();
 		});
 	}
 
@@ -138,7 +138,7 @@ class RegularProcessRunnerServiceTest {
 			        final var exec = Mockito.mock(Exec.class);
 			        final var execName = extractExecName(s.getCommandLine());
 			        final var params = extractParams(s.getCommandLine());
-			        when(execFactory.createNewExec(eq(execName))).thenReturn(exec);
+			        when(execFactoryService.createNewExec(eq(execName))).thenReturn(exec);
 			        when(exec.getExecutableName()).thenReturn(execName);
 			        when(exec.getExecutableFile()).thenReturn(new File(execName));
 			        when(exec.getParameters()).thenReturn(params);
@@ -158,7 +158,7 @@ class RegularProcessRunnerServiceTest {
 			                .thenReturn(bckServiceMap.get(service));
 		});
 
-		regularProcessRunnerService.start();
+		regularProcessRunnerServiceImpl.start();
 
 		final var taskCaptureMap = confServices.stream()
 		        .collect(toUnmodifiableMap(s -> s, s -> ArgumentCaptor.forClass(Task.class)));
@@ -218,7 +218,7 @@ class RegularProcessRunnerServiceTest {
 		final var bckConfServices = List.copyOf(confServices);
 		confServices.clear();
 		regularProcessRunnersConfigurer.setDisabledAtStart(false);
-		regularProcessRunnerService.afterPropertiesSet();
+		regularProcessRunnerServiceImpl.afterPropertiesSet();
 		confServices.addAll(bckConfServices);
 
 		/**
@@ -233,7 +233,7 @@ class RegularProcessRunnerServiceTest {
 	 */
 	private void checkBadWorkingDir() throws IOException {
 		assertThrows(FileNotFoundException.class, () -> {
-			regularProcessRunnerService.start();
+			regularProcessRunnerServiceImpl.start();
 		});
 	}
 
@@ -344,7 +344,7 @@ class RegularProcessRunnerServiceTest {
 
 	@Test
 	void testDestroy() throws Exception {
-		regularProcessRunnerService.destroy();
+		regularProcessRunnerServiceImpl.destroy();
 		verify(jobKitEngine, atLeastOnce()).shutdown();
 		verify(jobKitEngine, atLeastOnce()).waitToClose();
 		verify(scheduledExecutorService, atLeastOnce()).shutdownNow();
@@ -392,7 +392,7 @@ class RegularProcessRunnerServiceTest {
 			when(output.getStdout(eq(false), eq(lineSeparator()))).thenReturn("stdOut");
 			when(output.getStderr(eq(false), eq(lineSeparator()))).thenReturn("stdErr");
 
-			task = regularProcessRunnerService.new Task(runnerConf, exec);
+			task = regularProcessRunnerServiceImpl.new Task(runnerConf, exec);
 
 			defaultTemplateNameDone = regularProcessRunnersConfigurer.getDefaultTemplateNameDone();
 			defaultTemplateNameError = regularProcessRunnersConfigurer.getDefaultTemplateNameError();
