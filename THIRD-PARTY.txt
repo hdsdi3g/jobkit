@@ -112,5 +112,5 @@ Lists of 114 third-party dependencies.
      (GNU Lesser General Public License, Version 3) JobKit-engine (tv.hd3g:jobkit-engine:0.0.2 - https://github.com/hdsdi3g/jobkit-engine)
      (GNU Lesser General Public License, Version 3) processlauncher (tv.hd3g:processlauncher:2.2.1 - https://github.com/hdsdi3g/processlauncher)
      (GNU Lesser General Public License, Version 3) SelfAutoRESTDoc (tv.hd3g:selfautorestdoc:0.0.3 - https://github.com/hdsdi3g/selfautorestdoc)
-     (GNU Lesser General Public License, Version 3) CodePolicyValidation (tv.hd3g.commons:codepolicyvalidation:0.1.0 - https://github.com/hdsdi3g/codepolicyvalidation)
+     (GNU Lesser General Public License, Version 3) CodePolicyValidation (tv.hd3g.commons:codepolicyvalidation:0.2.0 - https://github.com/hdsdi3g/codepolicyvalidation)
      (GNU Lesser General Public License, Version 3) Commons Interfaces (tv.hd3g.commons:interfaces:0.3.0 - https://github.com/hdsdi3g/interfaces)
