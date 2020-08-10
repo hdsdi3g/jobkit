@@ -3,7 +3,8 @@ package tv.hd3g.jobkit.mod.controller;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -45,7 +46,7 @@ class JobKitStateControllerTest {
 	        .value()[0];
 	private static final ResultMatcher statusOkUtf8Hateoas = ResultMatcher.matchAll(
 	        status().isOk(),
-	        content().contentType(APPLICATION_JSON_UTF8),
+	        content().contentType(APPLICATION_JSON_VALUE),
 	        checkHateoasPresence());
 
 	@Mock
@@ -69,11 +70,11 @@ class JobKitStateControllerTest {
 		// DataGenerator.setupMock(request);
 
 		baseHeaders = new HttpHeaders();
-		baseHeaders.setAccept(Arrays.asList(APPLICATION_JSON_UTF8));
+		baseHeaders.setAccept(Arrays.asList(APPLICATION_JSON));
 	}
 
 	private static ResultMatcher checkHateoasPresence() {
-		final var linkPresence = jsonPath("$.links").isArray();
+		final var linkPresence = jsonPath("$._links").isMap();
 		return ResultMatcher.matchAll(linkPresence);
 	}
 

@@ -2,10 +2,10 @@ package tv.hd3g.jobkit.mod.controller;
 
 import static java.time.temporal.ChronoUnit.SECONDS;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import java.time.Duration;
@@ -18,7 +18,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,12 +30,13 @@ import tv.hd3g.commons.authkit.CheckBefore;
 import tv.hd3g.jobkit.engine.BackgroundService;
 import tv.hd3g.jobkit.engine.JobKitEngine;
 import tv.hd3g.jobkit.mod.BackgroundServiceId;
+import tv.hd3g.jobkit.mod.dto.BaseRepresentationModel;
 import tv.hd3g.jobkit.mod.dto.WsDtoLink;
 import tv.hd3g.jobkit.mod.exception.JobKitRestException;
 
 @RestController
 @CheckBefore("jobkitAction")
-@RequestMapping(value = "/v1/jobkit/action", produces = APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/v1/jobkit/action", produces = APPLICATION_JSON_VALUE)
 @Validated
 public class JobKitActionController {
 
@@ -47,44 +47,44 @@ public class JobKitActionController {
 	private BackgroundServiceId backgroundServiceId;
 
 	@PutMapping(value = "{uuid}/enable")
-	public ResponseEntity<ResourceSupport> enable(@PathVariable("uuid") @NotEmpty final String uuid) {
+	public ResponseEntity<BaseRepresentationModel> enable(@PathVariable("uuid") @NotEmpty final String uuid) {
 		getBackgroundServiceByUUID(uuid).enable();
-		final var result = new ResourceSupport();
+		final var result = new BaseRepresentationModel();
 		createHateoasLinks(result);
 		return new ResponseEntity<>(result, OK);
 	}
 
 	@PutMapping(value = "{uuid}/disable")
-	public ResponseEntity<ResourceSupport> disable(@PathVariable("uuid") @NotEmpty final String uuid) {
+	public ResponseEntity<BaseRepresentationModel> disable(@PathVariable("uuid") @NotEmpty final String uuid) {
 		getBackgroundServiceByUUID(uuid).disable();
-		final var result = new ResourceSupport();
+		final var result = new BaseRepresentationModel();
 		createHateoasLinks(result);
 		return new ResponseEntity<>(result, OK);
 	}
 
 	@PutMapping(value = "{uuid}/timed-interval/{duration}")
-	public ResponseEntity<ResourceSupport> setTimedInterval(@PathVariable("uuid") @NotEmpty final String uuid,
-	                                                        @PathVariable("duration") @Positive final long duration) {
+	public ResponseEntity<BaseRepresentationModel> setTimedInterval(@PathVariable("uuid") @NotEmpty final String uuid,
+	                                                                @PathVariable("duration") @Positive final long duration) {
 		getBackgroundServiceByUUID(uuid).setTimedInterval(Duration.of(duration, SECONDS));
-		final var result = new ResourceSupport();
+		final var result = new BaseRepresentationModel();
 		createHateoasLinks(result);
 		return new ResponseEntity<>(result, OK);
 	}
 
 	@PutMapping(value = "{uuid}/priority/{priority}")
-	public ResponseEntity<ResourceSupport> setPriority(@PathVariable("uuid") @NotEmpty final String uuid,
-	                                                   @PathVariable("priority") @NotNull final int priority) {
+	public ResponseEntity<BaseRepresentationModel> setPriority(@PathVariable("uuid") @NotEmpty final String uuid,
+	                                                           @PathVariable("priority") @NotNull final int priority) {
 		getBackgroundServiceByUUID(uuid).setPriority(priority);
-		final var result = new ResourceSupport();
+		final var result = new BaseRepresentationModel();
 		createHateoasLinks(result);
 		return new ResponseEntity<>(result, OK);
 	}
 
 	@PutMapping(value = "{uuid}/retry-after-time-factor/{factor}")
-	public ResponseEntity<ResourceSupport> setRetryAfterTimeFactor(@PathVariable("uuid") @NotEmpty final String uuid,
-	                                                               @PathVariable("factor") @Positive final double factor) {
+	public ResponseEntity<BaseRepresentationModel> setRetryAfterTimeFactor(@PathVariable("uuid") @NotEmpty final String uuid,
+	                                                                       @PathVariable("factor") @Positive final double factor) {
 		getBackgroundServiceByUUID(uuid).setRetryAfterTimeFactor(factor);
-		final var result = new ResourceSupport();
+		final var result = new BaseRepresentationModel();
 		createHateoasLinks(result);
 		return new ResponseEntity<>(result, OK);
 	}
@@ -95,30 +95,30 @@ public class JobKitActionController {
 	}
 
 	@PutMapping(value = "all/enable")
-	public ResponseEntity<ResourceSupport> enableAll() {
+	public ResponseEntity<BaseRepresentationModel> enableAll() {
 		backgroundServiceId.forEach(BackgroundService::enable);
-		final var result = new ResourceSupport();
+		final var result = new BaseRepresentationModel();
 		createHateoasLinks(result);
 		return new ResponseEntity<>(result, OK);
 	}
 
 	@PutMapping(value = "all/disable")
-	public ResponseEntity<ResourceSupport> disableAll() {
+	public ResponseEntity<BaseRepresentationModel> disableAll() {
 		backgroundServiceId.forEach(BackgroundService::disable);
-		final var result = new ResourceSupport();
+		final var result = new BaseRepresentationModel();
 		createHateoasLinks(result);
 		return new ResponseEntity<>(result, OK);
 	}
 
 	@PutMapping(value = "shutdown")
-	public ResponseEntity<ResourceSupport> shutdown() {
+	public ResponseEntity<BaseRepresentationModel> shutdown() {
 		jobKitEngine.shutdown();
-		final var result = new ResourceSupport();
+		final var result = new BaseRepresentationModel();
 		createHateoasLinks(result);
 		return new ResponseEntity<>(result, OK);
 	}
 
-	private void createHateoasLinks(final ResourceSupport res) {
+	private void createHateoasLinks(final BaseRepresentationModel res) {
 		prepHLink(res, c -> c.enable(UUID_VAR), "enable", PUT);
 		prepHLink(res, c -> c.disable(UUID_VAR), "disable", PUT);
 		prepHLink(res, c -> c.setTimedInterval(UUID_VAR, 1), "setTimedInterval", PUT);
@@ -132,11 +132,11 @@ public class JobKitActionController {
 	/**
 	 * prepareHateoasLink
 	 */
-	private void prepHLink(final ResourceSupport ressource,
+	private void prepHLink(final BaseRepresentationModel ressource,
 	                       final Function<JobKitActionController, Object> linkTo,
 	                       final String rel,
 	                       final RequestMethod method) {
-		final Class<JobKitActionController> c = JobKitActionController.class;
+		final var c = JobKitActionController.class;
 		final var link = linkTo.apply(methodOn(c));
 		ressource.add(new WsDtoLink(linkTo(link).withRel(rel), method));
 	}

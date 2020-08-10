@@ -2,11 +2,9 @@ package tv.hd3g.jobkit.mod.dto;
 
 import java.util.Objects;
 
-import org.springframework.hateoas.ResourceSupport;
-
 import tv.hd3g.jobkit.engine.status.JobKitEngineStatus;
 
-public class JobKitEngineStatusDto extends ResourceSupport {
+public class JobKitEngineStatusDto extends BaseRepresentationModel {
 
 	private final JobKitEngineStatus jobKitEngineStatus;
 
@@ -20,8 +18,8 @@ public class JobKitEngineStatusDto extends ResourceSupport {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
+		final var prime = 31;
+		var result = super.hashCode();
 		result = prime * result + Objects.hash(jobKitEngineStatus);
 		return result;
 	}
@@ -37,7 +35,7 @@ public class JobKitEngineStatusDto extends ResourceSupport {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		final JobKitEngineStatusDto other = (JobKitEngineStatusDto) obj;
+		final var other = (JobKitEngineStatusDto) obj;
 		return Objects.equals(jobKitEngineStatus, other.jobKitEngineStatus);
 	}
 }

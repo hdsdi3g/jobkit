@@ -19,8 +19,7 @@
 disableAll
 
 ```javascript
-Response: "application/json;charset=UTF-8" {
-    links: [Link, ...]
+Response: "application/json" {
 }
 ```
 
@@ -33,8 +32,7 @@ _Mandatory rights: jobkitAction_
 enableAll
 
 ```javascript
-Response: "application/json;charset=UTF-8" {
-    links: [Link, ...]
+Response: "application/json" {
 }
 ```
 
@@ -47,8 +45,7 @@ _Mandatory rights: jobkitAction_
 shutdown
 
 ```javascript
-Response: "application/json;charset=UTF-8" {
-    links: [Link, ...]
+Response: "application/json" {
 }
 ```
 
@@ -64,8 +61,7 @@ Parameters:
  - **uuid** String
 
 ```javascript
-Response: "application/json;charset=UTF-8" {
-    links: [Link, ...]
+Response: "application/json" {
 }
 ```
 
@@ -81,8 +77,7 @@ Parameters:
  - **uuid** String
 
 ```javascript
-Response: "application/json;charset=UTF-8" {
-    links: [Link, ...]
+Response: "application/json" {
 }
 ```
 
@@ -99,8 +94,7 @@ Parameters:
  - **priority** int
 
 ```javascript
-Response: "application/json;charset=UTF-8" {
-    links: [Link, ...]
+Response: "application/json" {
 }
 ```
 
@@ -117,8 +111,7 @@ Parameters:
  - **factor** double
 
 ```javascript
-Response: "application/json;charset=UTF-8" {
-    links: [Link, ...]
+Response: "application/json" {
 }
 ```
 
@@ -135,8 +128,7 @@ Parameters:
  - **duration** long
 
 ```javascript
-Response: "application/json;charset=UTF-8" {
-    links: [Link, ...]
+Response: "application/json" {
 }
 ```
 
@@ -149,9 +141,9 @@ _Mandatory rights: jobkitAction_
 getConf
 
 ```javascript
-Response: "application/json;charset=UTF-8" {
+Response: "application/json" {
     execPath: [String, ...],
-    links: [Link, ...],
+    links: Links,
     senderReference: String,
     services: [{
         commandLine: String,
@@ -173,8 +165,8 @@ _Mandatory rights: (jobkitState) & (jobkitConf)_
 getIds
 
 ```javascript
-Response: "application/json;charset=UTF-8" {
-    links: [Link, ...],
+Response: "application/json" {
+    links: Links,
     servicesIds: [Item, ...]
 }
 ```
@@ -188,7 +180,7 @@ _Mandatory rights: (jobkitState) & (jobkitStatus)_
 getLastStatus
 
 ```javascript
-Response: "application/json;charset=UTF-8" {
+Response: "application/json" {
     lastStatus: {
         backgroundServicesStatus: [{
             enabled: boolean,
@@ -220,7 +212,7 @@ Response: "application/json;charset=UTF-8" {
             }, ...]
         }
     },
-    links: [Link, ...]
+    links: Links
 }
 ```
 

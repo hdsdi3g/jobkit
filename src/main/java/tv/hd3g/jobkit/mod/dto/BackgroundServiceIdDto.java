@@ -4,9 +4,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-import org.springframework.hateoas.ResourceSupport;
-
-public class BackgroundServiceIdDto extends ResourceSupport {
+public class BackgroundServiceIdDto extends BaseRepresentationModel {
 
 	private final Set<Item> servicesIds;
 
@@ -45,8 +43,8 @@ public class BackgroundServiceIdDto extends ResourceSupport {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
+		final var prime = 31;
+		var result = super.hashCode();
 		result = prime * result + Objects.hash(servicesIds);
 		return result;
 	}
@@ -62,7 +60,7 @@ public class BackgroundServiceIdDto extends ResourceSupport {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		final BackgroundServiceIdDto other = (BackgroundServiceIdDto) obj;
+		final var other = (BackgroundServiceIdDto) obj;
 		return Objects.equals(servicesIds, other.servicesIds);
 	}
 }

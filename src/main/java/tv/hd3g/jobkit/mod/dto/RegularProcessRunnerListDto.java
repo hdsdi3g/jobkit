@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import org.springframework.hateoas.ResourceSupport;
-
-public class RegularProcessRunnerListDto extends ResourceSupport {
+public class RegularProcessRunnerListDto extends BaseRepresentationModel {
 
 	private final Set<RegularProcessRunnerDto> services;
 	private final List<String> execPath;
@@ -34,8 +32,8 @@ public class RegularProcessRunnerListDto extends ResourceSupport {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
+		final var prime = 31;
+		var result = super.hashCode();
 		result = prime * result + Objects.hash(execPath, senderReference, services);
 		return result;
 	}
@@ -51,7 +49,7 @@ public class RegularProcessRunnerListDto extends ResourceSupport {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		final RegularProcessRunnerListDto other = (RegularProcessRunnerListDto) obj;
+		final var other = (RegularProcessRunnerListDto) obj;
 		return Objects.equals(execPath, other.execPath) && Objects.equals(senderReference, other.senderReference)
 		       && Objects.equals(services, other.services);
 	}

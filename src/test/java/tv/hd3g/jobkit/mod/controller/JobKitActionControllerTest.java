@@ -8,7 +8,8 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -54,7 +55,7 @@ class JobKitActionControllerTest {
 	        .value()[0];
 	static final ResultMatcher statusOkUtf8Hateoas = ResultMatcher.matchAll(
 	        status().isOk(),
-	        content().contentType(APPLICATION_JSON_UTF8),
+	        content().contentType(APPLICATION_JSON_VALUE),
 	        checkHateoasPresence());
 	static Random random = new Random();
 
@@ -84,13 +85,13 @@ class JobKitActionControllerTest {
 		// DataGenerator.setupMock(request);
 
 		baseHeaders = new HttpHeaders();
-		baseHeaders.setAccept(Arrays.asList(APPLICATION_JSON_UTF8));
+		baseHeaders.setAccept(Arrays.asList(APPLICATION_JSON));
 		uuid = UUID.randomUUID();
 		when(backgroundServiceId.getByUUID(uuid)).thenReturn(backgroundService);
 	}
 
 	private static ResultMatcher checkHateoasPresence() {
-		final var linkPresence = jsonPath("$.links").isArray();
+		final var linkPresence = jsonPath("$._links").isMap();
 		return ResultMatcher.matchAll(linkPresence);
 	}
 
@@ -206,7 +207,7 @@ class JobKitActionControllerTest {
 		mvc.perform(put(baseMapping + "/" + uuid + "/" + "enable")
 		        .headers(baseHeaders))
 		        .andExpect(status().isNotFound())
-		        .andExpect(content().contentType(APPLICATION_JSON_UTF8));
+		        .andExpect(content().contentType(APPLICATION_JSON_VALUE));
 
 		verify(backgroundServiceId, times(1)).getByUUID(eq(uuid));
 		verify(backgroundService, never()).enable();

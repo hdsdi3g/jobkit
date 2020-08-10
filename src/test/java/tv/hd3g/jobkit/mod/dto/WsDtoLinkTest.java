@@ -16,16 +16,17 @@
  */
 package tv.hd3g.jobkit.mod.dto;
 
-import static com.github.javafaker.Faker.instance;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static tv.hd3g.testtools.DataGenerator.getRandomEnum;
+import static tv.hd3g.testtools.DataGenerator.makeRandomString;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.LinkRelation;
 import org.springframework.hateoas.UriTemplate;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -46,8 +47,8 @@ class WsDtoLinkTest extends HashCodeEqualsTest {
 	void init() {
 		MockitoAnnotations.initMocks(this);
 		Mockito.when(link.getTemplate()).thenReturn(uriTemplate);
-		rel = RandomStringUtils.randomAscii(5000, 10000);
-		Mockito.when(link.getRel()).thenReturn(rel);
+		rel = makeRandomString();
+		Mockito.when(link.getRel()).thenReturn(LinkRelation.of(rel));
 		method = getRandomEnum(RequestMethod.class);
 
 		ws = new WsDtoLink(link, method);
@@ -65,17 +66,12 @@ class WsDtoLinkTest extends HashCodeEqualsTest {
 
 	@Test
 	void testGetRel() {
-		assertEquals(rel, ws.getRel());
+		assertEquals(rel, ws.getRel().value());
 	}
 
 	@Override
 	protected Object[] makeSameInstances() {
 		return new Object[] { new WsDtoLink(link, method), new WsDtoLink(link, method) };
-	}
-
-	static <T extends Enum<?>> T getRandomEnum(final Class<T> enum_class) {
-		final int x = instance().random().nextInt(enum_class.getEnumConstants().length);
-		return enum_class.getEnumConstants()[x];
 	}
 
 }
