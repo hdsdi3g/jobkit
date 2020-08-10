@@ -2,9 +2,11 @@ package tv.hd3g.jobkit.mod.dto;
 
 import java.util.Objects;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import tv.hd3g.jobkit.engine.status.JobKitEngineStatus;
 
-public class JobKitEngineStatusDto extends BaseRepresentationModel {
+public class JobKitEngineStatusDto extends RepresentationModel<JobKitEngineStatusDto> {
 
 	private final JobKitEngineStatus jobKitEngineStatus;
 

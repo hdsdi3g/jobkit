@@ -44,10 +44,9 @@ class JobKitStateControllerTest {
 
 	private static final String baseMapping = JobKitStateController.class.getAnnotation(RequestMapping.class)
 	        .value()[0];
-	private static final ResultMatcher statusOkUtf8Hateoas = ResultMatcher.matchAll(
+	private static final ResultMatcher statusOkUtf8 = ResultMatcher.matchAll(
 	        status().isOk(),
-	        content().contentType(APPLICATION_JSON_VALUE),
-	        checkHateoasPresence());
+	        content().contentType(APPLICATION_JSON_VALUE));
 
 	@Mock
 	HttpServletRequest request;
@@ -73,11 +72,6 @@ class JobKitStateControllerTest {
 		baseHeaders.setAccept(Arrays.asList(APPLICATION_JSON));
 	}
 
-	private static ResultMatcher checkHateoasPresence() {
-		final var linkPresence = jsonPath("$._links").isMap();
-		return ResultMatcher.matchAll(linkPresence);
-	}
-
 	@Test
 	void testGetLastStatus() throws Exception {
 		final var spoolerStatus = new SpoolerStatus(Set.of(), 1, false);
@@ -86,7 +80,7 @@ class JobKitStateControllerTest {
 
 		mvc.perform(get(baseMapping + "/" + "status")
 		        .headers(baseHeaders))
-		        .andExpect(statusOkUtf8Hateoas)
+		        .andExpect(statusOkUtf8)
 		        .andExpect(jsonPath("$.lastStatus").isMap());
 
 		verify(jobKitEngine, times(1)).getLastStatus();
@@ -96,7 +90,7 @@ class JobKitStateControllerTest {
 	void testGetConf() throws Exception {
 		mvc.perform(get(baseMapping + "/" + "conf")
 		        .headers(baseHeaders))
-		        .andExpect(statusOkUtf8Hateoas)
+		        .andExpect(statusOkUtf8)
 		        .andExpect(jsonPath("$.senderReference").value("send-ref-email"));
 	}
 
@@ -107,7 +101,7 @@ class JobKitStateControllerTest {
 
 		mvc.perform(get(baseMapping + "/" + "ids")
 		        .headers(baseHeaders))
-		        .andExpect(statusOkUtf8Hateoas)
+		        .andExpect(statusOkUtf8)
 		        .andExpect(jsonPath("$.servicesIds").isArray());
 
 		verify(backgroundServiceId, times(1)).getAllRegistedAsDto();

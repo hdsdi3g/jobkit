@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-public class RegularProcessRunnerListDto extends BaseRepresentationModel {
+import org.springframework.hateoas.RepresentationModel;
+
+public class RegularProcessRunnerListDto extends RepresentationModel<RegularProcessRunnerListDto> {
 
 	private final Set<RegularProcessRunnerDto> services;
 	private final List<String> execPath;

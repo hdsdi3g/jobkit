@@ -12,7 +12,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.Duration;
@@ -51,12 +50,9 @@ import tv.hd3g.jobkit.mod.BackgroundServiceId;
 @ActiveProfiles({ "DefaultMock" })
 class JobKitActionControllerTest {
 
-	static final String baseMapping = JobKitActionController.class.getAnnotation(RequestMapping.class)
+	private static final String baseMapping = JobKitActionController.class.getAnnotation(RequestMapping.class)
 	        .value()[0];
-	static final ResultMatcher statusOkUtf8Hateoas = ResultMatcher.matchAll(
-	        status().isOk(),
-	        content().contentType(APPLICATION_JSON_VALUE),
-	        checkHateoasPresence());
+	private static final ResultMatcher statusOk = status().isOk();
 	static Random random = new Random();
 
 	@Mock
@@ -90,16 +86,11 @@ class JobKitActionControllerTest {
 		when(backgroundServiceId.getByUUID(uuid)).thenReturn(backgroundService);
 	}
 
-	private static ResultMatcher checkHateoasPresence() {
-		final var linkPresence = jsonPath("$._links").isMap();
-		return ResultMatcher.matchAll(linkPresence);
-	}
-
 	@Test
 	void testEnable() throws Exception {
 		mvc.perform(put(baseMapping + "/" + uuid + "/" + "enable")
 		        .headers(baseHeaders))
-		        .andExpect(statusOkUtf8Hateoas);
+		        .andExpect(statusOk);
 
 		verify(backgroundServiceId, times(1)).getByUUID(eq(uuid));
 		verify(backgroundService, times(1)).enable();
@@ -109,7 +100,7 @@ class JobKitActionControllerTest {
 	void testDisable() throws Exception {
 		mvc.perform(put(baseMapping + "/" + uuid + "/" + "disable")
 		        .headers(baseHeaders))
-		        .andExpect(statusOkUtf8Hateoas);
+		        .andExpect(statusOk);
 
 		verify(backgroundServiceId, times(1)).getByUUID(eq(uuid));
 		verify(backgroundService, times(1)).disable();
@@ -120,7 +111,7 @@ class JobKitActionControllerTest {
 		final var duration = Math.abs(random.nextLong());
 		mvc.perform(put(baseMapping + "/" + uuid + "/timed-interval/" + duration)
 		        .headers(baseHeaders))
-		        .andExpect(statusOkUtf8Hateoas);
+		        .andExpect(statusOk);
 
 		verify(backgroundServiceId, times(1)).getByUUID(eq(uuid));
 
@@ -134,7 +125,7 @@ class JobKitActionControllerTest {
 		final var priority = random.nextInt();
 		mvc.perform(put(baseMapping + "/" + uuid + "/priority/" + priority)
 		        .headers(baseHeaders))
-		        .andExpect(statusOkUtf8Hateoas);
+		        .andExpect(statusOk);
 
 		verify(backgroundServiceId, times(1)).getByUUID(eq(uuid));
 
@@ -148,7 +139,7 @@ class JobKitActionControllerTest {
 		final var factor = random.nextDouble();
 		mvc.perform(put(baseMapping + "/" + uuid + "/retry-after-time-factor/" + factor)
 		        .headers(baseHeaders))
-		        .andExpect(statusOkUtf8Hateoas);
+		        .andExpect(statusOk);
 
 		verify(backgroundServiceId, times(1)).getByUUID(eq(uuid));
 
@@ -161,7 +152,7 @@ class JobKitActionControllerTest {
 	void testEnableAll() throws Exception {
 		mvc.perform(put(baseMapping + "/all/enable")
 		        .headers(baseHeaders))
-		        .andExpect(statusOkUtf8Hateoas);
+		        .andExpect(statusOk);
 
 		verify(backgroundServiceId, times(1)).forEach(captorConsumerBackgroundService.capture());
 		final var consumerBackgroundService = captorConsumerBackgroundService.getValue();
@@ -173,7 +164,7 @@ class JobKitActionControllerTest {
 	void testDisableAll() throws Exception {
 		mvc.perform(put(baseMapping + "/all/disable")
 		        .headers(baseHeaders))
-		        .andExpect(statusOkUtf8Hateoas);
+		        .andExpect(statusOk);
 
 		verify(backgroundServiceId, times(1)).forEach(captorConsumerBackgroundService.capture());
 		final var consumerBackgroundService = captorConsumerBackgroundService.getValue();
@@ -185,7 +176,7 @@ class JobKitActionControllerTest {
 	void testShutdown() throws Exception {
 		mvc.perform(put(baseMapping + "/shutdown")
 		        .headers(baseHeaders))
-		        .andExpect(statusOkUtf8Hateoas);
+		        .andExpect(statusOk);
 		verify(jobKitEngine, times(1)).shutdown();
 	}
 

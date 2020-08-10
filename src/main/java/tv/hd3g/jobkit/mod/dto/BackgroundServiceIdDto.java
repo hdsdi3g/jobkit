@@ -4,7 +4,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-public class BackgroundServiceIdDto extends BaseRepresentationModel {
+import org.springframework.hateoas.RepresentationModel;
+
+public class BackgroundServiceIdDto extends RepresentationModel<BackgroundServiceIdDto> {
 
 	private final Set<Item> servicesIds;
 
