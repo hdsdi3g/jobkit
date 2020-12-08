@@ -38,6 +38,12 @@
 			<artifactId>selfautorestdoc</artifactId>
 			<version>0.0.5</version>
 		</dependency>
+		<dependency>
+			<groupId>tv.hd3g.commons</groupId>
+			<artifactId>codepolicyvalidation</artifactId>
+			<version>0.2.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<organization>
