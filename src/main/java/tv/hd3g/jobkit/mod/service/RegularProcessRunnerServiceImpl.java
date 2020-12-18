@@ -208,7 +208,7 @@ public class RegularProcessRunnerServiceImpl implements InitializingBean, Dispos
 				mailConf = providedMailConf;
 			}
 
-			final String senderAddr = regularProcessRunnersConfigurer.getSendFrom();
+			final var senderAddr = regularProcessRunnersConfigurer.getSendFrom();
 			if (senderAddr == null) {
 				return;
 			}
@@ -245,7 +245,7 @@ public class RegularProcessRunnerServiceImpl implements InitializingBean, Dispos
 			                .orElse(""),
 			        "stackTrace", Optional.ofNullable(error)
 			                .map(e -> {
-				                final StringWriter swException = new StringWriter();
+				                final var swException = new StringWriter();
 				                final var pwException = new PrintWriter(swException);
 				                error.printStackTrace(pwException);
 				                return swException.getBuffer().toString();
@@ -253,7 +253,8 @@ public class RegularProcessRunnerServiceImpl implements InitializingBean, Dispos
 			                .orElse(""))
 			        .entrySet().stream();
 
-			final Map<String, Object> templateVars = Stream.concat(configuredVarsStream, mailVarsStream)
+			final Map<String, Object> templateVars;
+			templateVars = Stream.concat(configuredVarsStream, mailVarsStream)
 			        .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (l, r) -> r));
 
 			/**
@@ -339,7 +340,7 @@ public class RegularProcessRunnerServiceImpl implements InitializingBean, Dispos
 		final var exec = execFactoryService.createNewExec(execName);
 		exec.getParameters().clear().addBulkParameters(commandLine);
 
-		final Task task = new Task(runnerConf, exec);
+		final var task = new Task(runnerConf, exec);
 
 		final var service = jobKitEngine.startService(
 		        runnerConf.getName(),
