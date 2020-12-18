@@ -76,7 +76,7 @@ public class RegularProcessRunnerServiceImpl implements InitializingBean, Dispos
 	public void start() throws FileNotFoundException {
 		final var services = regularProcessRunnersConfigurer.getServices();
 		if (services == null || services.isEmpty()) {
-			log.warn("No configured services to start for RegularProcessRunner");
+			log.debug("No configured services to start for RegularProcessRunner");
 			return;
 		}
 
