@@ -46,8 +46,8 @@ class RegularProcessRunnersConfigurerTest {
 	RegularProcessRunnersConfigurer regularProcessRunnersConfigurer;
 
 	@BeforeEach
-	void init() {
-		MockitoAnnotations.initMocks(this);
+	void init() throws Exception {
+		MockitoAnnotations.openMocks(this).close();
 		sendFrom = String.valueOf(random.nextLong());
 		replyTo = String.valueOf(random.nextLong());
 		senderReference = String.valueOf(random.nextLong());
@@ -199,8 +199,8 @@ class RegularProcessRunnersConfigurerTest {
 		RegularProcessRunnerEntry regularProcessRunnerEntry;
 
 		@BeforeEach
-		void init() {
-			MockitoAnnotations.initMocks(this);
+		void init() throws Exception {
+			MockitoAnnotations.openMocks(this).close();
 			name = String.valueOf(random.nextLong());
 			spoolName = String.valueOf(random.nextLong());
 			comment = String.valueOf(random.nextLong());
@@ -365,8 +365,8 @@ class RegularProcessRunnersConfigurerTest {
 		AfterExecEntry afterExecEntry;
 
 		@BeforeEach
-		void init() {
-			MockitoAnnotations.initMocks(this);
+		void init() throws Exception {
+			MockitoAnnotations.openMocks(this).close();
 			replyTo = String.valueOf(random.nextLong());
 			templateName = String.valueOf(random.nextLong());
 

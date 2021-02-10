@@ -32,8 +32,8 @@ class JobKitSetupTest {
 	JobKitSetup jobKitSetup;
 
 	@BeforeEach
-	void init() {
-		MockitoAnnotations.initMocks(this);
+	void init() throws Exception {
+		MockitoAnnotations.openMocks(this).close();
 		jobKitSetup = new JobKitSetup(resourceBundleMessageSource);
 	}
 
@@ -42,8 +42,8 @@ class JobKitSetupTest {
 		final var sch = jobKitSetup.getScheduledExecutor();
 		assertNotNull(sch);
 
-		final AtomicReference<Thread> currentThread = new AtomicReference<>();
-		final CountDownLatch latch = new CountDownLatch(1);
+		final var currentThread = new AtomicReference<Thread>();
+		final var latch = new CountDownLatch(1);
 		sch.execute(() -> {
 			currentThread.set(Thread.currentThread());
 			latch.countDown();

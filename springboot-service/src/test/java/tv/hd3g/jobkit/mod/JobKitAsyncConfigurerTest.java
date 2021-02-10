@@ -31,8 +31,8 @@ class JobKitAsyncConfigurerTest {
 	JobKitAsyncConfigurer jobKitAsyncConfigurer;
 
 	@BeforeEach
-	void init() {
-		MockitoAnnotations.initMocks(this);
+	void init() throws Exception {
+		MockitoAnnotations.openMocks(this).close();
 		jobKitAsyncConfigurer = new JobKitAsyncConfigurer();
 		jobKitAsyncConfigurer.jobKitEngine = jobKitEngine;
 	}

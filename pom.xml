@@ -3,9 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>tv.hd3g</groupId>
-	<artifactId>jobkit</artifactId>
+	<artifactId>jobkit-starter</artifactId>
 	<version>3.0.3-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<name>Jobkit</name>
 	<url>https://github.com/hdsdi3g/jobkit</url>
@@ -13,45 +13,50 @@
 
 	<parent>
 		<groupId>tv.hd3g.commons</groupId>
-		<artifactId>parent</artifactId>
-		<version>2.3.7.RELEASE-2</version>
-		<relativePath />
+		<artifactId>starter</artifactId>
+		<version>3.0.0</version>
 	</parent>
 
-	<properties>
-		<mockito.version>3.3.3</mockito.version>
-	</properties>
+	<modules>
+		<module>springboot-service</module>
+	</modules>
 
 	<dependencies>
 		<dependency>
-			<groupId>tv.hd3g</groupId>
-			<artifactId>jobkit-engine</artifactId>
-			<version>3.0.2</version>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>tv.hd3g</groupId>
-			<artifactId>processlauncher</artifactId>
-			<version>4.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>tv.hd3g</groupId>
-			<artifactId>selfautorestdoc</artifactId>
-			<version>0.0.5</version>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
 		</dependency>
 	</dependencies>
 
-	<organization>
-		<name>hd3g.tv</name>
-		<url>https://hd3g.tv</url>
-	</organization>
-	<developers>
-		<developer>
-			<name>hdsdi3g</name>
-			<email>admin@hd3g.tv</email>
-			<organization>hd3g.tv</organization>
-			<organizationUrl>https://hd3g.tv</organizationUrl>
-		</developer>
-	</developers>
+	<properties>
+		<processlauncher.version>4.0.1</processlauncher.version>
+		<selfautorestdoc.version>0.0.5</selfautorestdoc.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>tv.hd3g</groupId>
+				<artifactId>jobkit-engine</artifactId>
+				<version>3.0.2</version>
+			</dependency>
+			<dependency>
+				<groupId>tv.hd3g</groupId>
+				<artifactId>processlauncher</artifactId>
+				<version>${processlauncher.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>tv.hd3g</groupId>
+				<artifactId>selfautorestdoc</artifactId>
+				<version>${selfautorestdoc.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<scm>
 		<connection>scm:git:https://github.com/hdsdi3g/jobkit.git</connection>
 		<developerConnection>scm:git:https://github.com/hdsdi3g/jobkit.git</developerConnection>
@@ -62,32 +67,4 @@
 		<url>https://github.com/hdsdi3g/jobkit/issues</url>
 		<system>GitHub</system>
 	</issueManagement>
-	<licenses>
-		<license>
-			<name>GNU Lesser General Public License, Version 3</name>
-			<url>https://www.gnu.org/licenses/lgpl.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>license-maven-plugin</artifactId>
-				<version>2.0.0</version>
-				<executions>
-					<execution>
-						<phase>compile</phase>
-						<goals>
-							<goal>add-third-party</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.basedir}</outputDirectory>
-							<useMissingFile>true</useMissingFile>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
 </project>

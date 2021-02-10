@@ -24,8 +24,8 @@ class BackgroundServiceIdDtoTest extends HashCodeEqualsTest {
 	BackgroundServiceIdDto backgroundServiceIdDto;
 
 	@BeforeEach
-	void init() {
-		MockitoAnnotations.initMocks(this);
+	void init() throws Exception {
+		MockitoAnnotations.openMocks(this).close();
 		backgroundServiceIdDto = new BackgroundServiceIdDto(servicesIds);
 	}
 

@@ -63,8 +63,8 @@ class JobKitStateControllerTest {
 	HttpHeaders baseHeaders;
 
 	@BeforeEach
-	private void init() {
-		MockitoAnnotations.initMocks(this);
+	private void init() throws Exception {
+		MockitoAnnotations.openMocks(this).close();
 		Mockito.reset(jobKitEngine, backgroundServiceId);
 		// DataGenerator.setupMock(request);
 

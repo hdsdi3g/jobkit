@@ -87,8 +87,8 @@ class RegularProcessRunnerServiceImplTest {
 	RegularProcessRunnerServiceImpl regularProcessRunnerServiceImpl;
 
 	@BeforeEach
-	void init() {
-		MockitoAnnotations.initMocks(this);
+	void init() throws Exception {
+		MockitoAnnotations.openMocks(this).close();
 		Mockito.reset(executableFinder);
 		Mockito.reset(execFactoryService);
 		Mockito.reset(jobKitEngine);
@@ -375,8 +375,8 @@ class RegularProcessRunnerServiceImplTest {
 		Map<String, Object> templateVars;
 
 		@BeforeEach
-		void init() throws FileNotFoundException {
-			MockitoAnnotations.initMocks(this);
+		void init() throws Exception {
+			MockitoAnnotations.openMocks(this).close();
 
 			execName = "exec-f";
 			when(exec.getExecutableName()).thenReturn(execName);

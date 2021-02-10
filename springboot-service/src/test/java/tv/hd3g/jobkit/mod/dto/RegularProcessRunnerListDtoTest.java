@@ -25,8 +25,8 @@ class RegularProcessRunnerListDtoTest extends HashCodeEqualsTest {
 	RegularProcessRunnerListDto regularProcessRunnerListDto;
 
 	@BeforeEach
-	void init() {
-		MockitoAnnotations.initMocks(this);
+	void init() throws Exception {
+		MockitoAnnotations.openMocks(this).close();
 		senderReference = String.valueOf(random.nextLong());
 		regularProcessRunnerListDto = new RegularProcessRunnerListDto(services, execPath, senderReference);
 	}

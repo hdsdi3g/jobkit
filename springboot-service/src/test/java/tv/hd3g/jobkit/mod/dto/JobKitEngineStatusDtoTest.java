@@ -18,8 +18,8 @@ class JobKitEngineStatusDtoTest extends HashCodeEqualsTest {
 	JobKitEngineStatusDto jobKitEngineStatusDto;
 
 	@BeforeEach
-	void init() {
-		MockitoAnnotations.initMocks(this);
+	void init() throws Exception {
+		MockitoAnnotations.openMocks(this).close();
 		jobKitEngineStatusDto = new JobKitEngineStatusDto(jobKitEngineStatus);
 	}
 
