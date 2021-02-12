@@ -14,12 +14,20 @@
 	<parent>
 		<groupId>tv.hd3g.commons</groupId>
 		<artifactId>starter</artifactId>
-		<version>3.0.0</version>
+		<version>3.1.1</version>
 	</parent>
 
 	<modules>
+		<module>engine</module>
 		<module>springboot-service</module>
 	</modules>
+
+	<properties>
+		<processlauncher.version>4.0.1</processlauncher.version>
+		<selfautorestdoc.version>0.0.5</selfautorestdoc.version>
+		<transfertfiles.version>0.0.5</transfertfiles.version>
+		<commons.text.version>1.9</commons.text.version>
+	</properties>
 
 	<dependencies>
 		<dependency>
@@ -32,17 +40,12 @@
 		</dependency>
 	</dependencies>
 
-	<properties>
-		<processlauncher.version>4.0.1</processlauncher.version>
-		<selfautorestdoc.version>0.0.5</selfautorestdoc.version>
-	</properties>
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>tv.hd3g</groupId>
 				<artifactId>jobkit-engine</artifactId>
-				<version>3.0.2</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>tv.hd3g</groupId>
@@ -53,6 +56,16 @@
 				<groupId>tv.hd3g</groupId>
 				<artifactId>selfautorestdoc</artifactId>
 				<version>${selfautorestdoc.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>tv.hd3g</groupId>
+				<artifactId>transfertfiles</artifactId>
+				<version>${transfertfiles.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-text</artifactId>
+				<version>${commons.text.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
