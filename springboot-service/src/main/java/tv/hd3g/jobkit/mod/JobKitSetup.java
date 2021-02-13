@@ -10,22 +10,15 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ResourceBundleMessageSource;
 
 import tv.hd3g.jobkit.engine.BackgroundServiceEvent;
 import tv.hd3g.jobkit.engine.ExecutionEvent;
 import tv.hd3g.jobkit.engine.JobKitEngine;
-import tv.hd3g.processlauncher.cmdline.ExecutableFinder;
 
 @Configuration
 public class JobKitSetup {
 
 	private static final Logger log = LogManager.getLogger();
-
-	@Autowired
-	public JobKitSetup(final ResourceBundleMessageSource rbms) {
-		rbms.addBasenames("jobkit-messages");
-	}
 
 	@Bean
 	ScheduledExecutorService getScheduledExecutor() {
@@ -45,11 +38,6 @@ public class JobKitSetup {
 	                             final ExecutionEvent executionEvent,
 	                             final BackgroundServiceEvent backgroundServiceEvent) {
 		return new JobKitEngine(scheduledExecutor, executionEvent, backgroundServiceEvent);
-	}
-
-	@Bean
-	ExecutableFinder getExecutableFinder() {
-		return new ExecutableFinder();
 	}
 
 	@Bean

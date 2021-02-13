@@ -1,5 +1,6 @@
 package tv.hd3g.jobkit;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.concurrent.ScheduledExecutorService;
@@ -19,6 +20,8 @@ import org.springframework.test.context.ActiveProfiles;
 import tv.hd3g.commons.mailkit.SendMailService;
 import tv.hd3g.jobkit.engine.JobKitEngine;
 import tv.hd3g.jobkit.mod.BackgroundServiceId;
+import tv.hd3g.jobkit.processrunners.service.ExecFactoryService;
+import tv.hd3g.processlauncher.cmdline.ExecutableFinder;
 
 public class MockService {
 
@@ -50,6 +53,18 @@ public class MockService {
 			return Mockito.mock(BackgroundServiceId.class);
 		}
 
+		@Bean
+		@Primary
+		public ExecutableFinder executableFinder() {
+			return Mockito.mock(ExecutableFinder.class);
+		}
+
+		@Bean
+		@Primary
+		public ExecFactoryService execFactoryService() {
+			return Mockito.mock(ExecFactoryService.class);
+		}
+
 	}
 
 	@Configuration
@@ -66,6 +81,12 @@ public class MockService {
 		@Primary
 		public SendMailService sendMailServiceMock() {
 			return Mockito.mock(SendMailService.class);
+		}
+
+		@Bean
+		@Primary
+		public ExecutableFinder executableFinder() {
+			return Mockito.mock(ExecutableFinder.class);
 		}
 
 	}
@@ -87,6 +108,10 @@ public class MockService {
 		JobKitEngine jobKitEngine;
 		@Autowired
 		BackgroundServiceId backgroundServiceId;
+		@Autowired
+		ExecutableFinder executableFinder;
+		@Autowired
+		ExecFactoryService execFactoryService;
 
 		@Test
 		void test() {
@@ -94,6 +119,8 @@ public class MockService {
 			assertTrue(MockUtil.isMock(scheduledExecutorService));
 			assertTrue(MockUtil.isMock(jobKitEngine));
 			assertTrue(MockUtil.isMock(backgroundServiceId));
+			assertTrue(MockUtil.isMock(executableFinder));
+			assertTrue(MockUtil.isMock(execFactoryService));
 		}
 	}
 
@@ -102,10 +129,16 @@ public class MockService {
 	static class TestExecFactoryMock {
 		@Autowired
 		SendMailService sendMailService;
+		@Autowired
+		ExecutableFinder executableFinder;
+		@Autowired
+		ExecFactoryService execFactoryService;
 
 		@Test
 		void test() {
 			assertTrue(MockUtil.isMock(sendMailService));
+			assertTrue(MockUtil.isMock(executableFinder));
+			assertFalse(MockUtil.isMock(execFactoryService));
 		}
 	}
 

@@ -1,5 +1,5 @@
 
-Lists of 111 third-party dependencies.
+Lists of 113 third-party dependencies.
      (Apache License, Version 2.0) ClassMate (com.fasterxml:classmate:1.5.1 - https://github.com/FasterXML/java-classmate)
      (The Apache Software License, Version 2.0) Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.11.3 - http://github.com/FasterXML/jackson)
      (The Apache Software License, Version 2.0) Jackson-core (com.fasterxml.jackson.core:jackson-core:2.11.3 - https://github.com/FasterXML/jackson-core)
@@ -19,7 +19,7 @@ Lists of 111 third-party dependencies.
      (Apache License, Version 2.0) Apache Commons IO (commons-io:commons-io:2.8.0 - https://commons.apache.org/proper/commons-io/)
      (Apache License, Version 2.0) Apache Commons Net (commons-net:commons-net:3.7.2 - https://commons.apache.org/proper/commons-net/)
      (BSD) Automaton (dk.brics.automaton:automaton:1.11-8 - http://www.brics.dk/automaton/)
-     (CeCILL-C) Spoon Core (fr.inria.gforge.spoon:spoon-core:8.2.0 - http://spoon.gforge.inria.fr/)
+     (CeCILL-C) Spoon Core (fr.inria.gforge.spoon:spoon-core:8.3.0 - http://spoon.gforge.inria.fr/)
      (EDL 1.0) Jakarta Activation API jar (jakarta.activation:jakarta.activation-api:1.2.2 - https://github.com/eclipse-ee4j/jaf/jakarta.activation-api)
      (EPL 2.0) (GPL2 w/ CPE) Jakarta Annotations API (jakarta.annotation:jakarta.annotation-api:1.3.5 - https://projects.eclipse.org/projects/ee4j.ca)
      (Apache License 2.0) Jakarta Bean Validation API (jakarta.validation:jakarta.validation-api:2.0.2 - https://beanvalidation.org)
@@ -53,7 +53,7 @@ Lists of 111 third-party dependencies.
      (Bouncy Castle Licence) Bouncy Castle Provider (org.bouncycastle:bcprov-jdk15on:1.66 - http://www.bouncycastle.org/java.html)
      (Apache License, Version 2.0) Plexus :: Component Annotations (org.codehaus.plexus:plexus-component-annotations:1.7.1 - http://codehaus-plexus.github.io/plexus-containers/plexus-component-annotations/)
      (Apache License, Version 2.0) Plexus Common Utilities (org.codehaus.plexus:plexus-utils:3.2.1 - http://codehaus-plexus.github.io/plexus-utils/)
-     (Eclipse Public License - v 2.0) Java Development Tools Core (org.eclipse.jdt:org.eclipse.jdt.core:3.20.0 - http://www.eclipse.org/jdt)
+     (Eclipse Public License - v 2.0) Java Development Tools Core (org.eclipse.jdt:org.eclipse.jdt.core:3.23.0 - http://www.eclipse.org/jdt)
      (EPL 2.0) (GPL2 w/ CPE) Jakarta Expression Language 3.0 (org.glassfish:jakarta.el:3.0.3 - https://projects.eclipse.org/projects/ee4j.el)
      (BSD License 3) Hamcrest (org.hamcrest:hamcrest:2.2 - http://hamcrest.org/JavaHamcrest/)
      (Apache License 2.0) Hibernate Validator Engine (org.hibernate.validator:hibernate-validator:6.1.6.Final - http://hibernate.org/validator/hibernate-validator)
@@ -106,7 +106,9 @@ Lists of 111 third-party dependencies.
      (The Apache Software License, Version 2.0) org.xmlunit:xmlunit-core (org.xmlunit:xmlunit-core:2.7.0 - https://www.xmlunit.org/)
      (Apache License, Version 2.0) SnakeYAML (org.yaml:snakeyaml:1.23 - http://www.snakeyaml.org)
      (Apache License, Version 2.0) SnakeYAML (org.yaml:snakeyaml:1.26 - http://www.snakeyaml.org)
+     (GNU Lesser General Public License, Version 3) Jobkit SpringBoot module (tv.hd3g:jobkit:4.0.0-SNAPSHOT - https://github.com/hdsdi3g/jobkit/jobkit)
      (GNU Lesser General Public License, Version 3) JobKit Engine (tv.hd3g:jobkit-engine:4.0.0-SNAPSHOT - https://github.com/hdsdi3g/jobkit/jobkit-engine)
+     (GNU Lesser General Public License, Version 3) processlauncher (tv.hd3g:processlauncher:4.0.1 - https://github.com/hdsdi3g/processlauncher)
      (GNU Lesser General Public License, Version 3) SelfAutoRESTDoc (tv.hd3g:selfautorestdoc:0.0.5 - https://github.com/hdsdi3g/selfautorestdoc)
      (GNU Lesser General Public License, Version 3) transfertfiles (tv.hd3g:transfertfiles:0.0.5 - https://github.com/hdsdi3g/transfertfiles)
      (GNU Lesser General Public License, Version 3) CodePolicyValidation (tv.hd3g.commons:codepolicyvalidation:0.4.0 - https://github.com/hdsdi3g/codepolicyvalidation)

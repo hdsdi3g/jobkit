@@ -16,11 +16,27 @@
  */
 package tv.hd3g.jobkit;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
+
+import tv.hd3g.commons.mailkit.SendMailService;
 
 @Configuration
 @ComponentScan(basePackages = { "tv.hd3g.jobkit", "tv.hd3g.selfautorestdoc.mod" })
 public class Setup {
+
+	@Bean
+	public ResourceBundleMessageSource messageSource() {
+		return new ResourceBundleMessageSource();
+	}
+
+	@Bean
+	public SendMailService sendMailService() {
+		return sendMailDto -> {
+			throw new IllegalAccessError("sendMailService is not configured for this project");
+		};
+	}
 
 }

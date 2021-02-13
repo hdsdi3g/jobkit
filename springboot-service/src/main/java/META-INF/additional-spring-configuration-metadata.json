@@ -3,10 +3,5 @@
     "name": "spring.main.log-startup-info",
     "type": "java.lang.String",
     "description": "SpringBoot startup info"
-  },
-  {
-    "name": "jobkit.processrunners",
-    "type": "tv.hd3g.jobkit.mod.RegularProcessRunnersConfigurer",
-    "description": "RegularProcessRunners configuration"
   }
 ]}

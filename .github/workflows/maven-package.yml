@@ -31,7 +31,7 @@ jobs:
         -Dsonar.projectKey=hdsdi3g_jobkit
         -Dsonar.organization=hdsdi3g
         -Dsonar.host.url=https://sonarcloud.io
-        -Dsonar.sources="springboot-service/src/main/java,springboot-service/src/main/resources,engine/src/main/java,engine/src/main/resources"
+        -Dsonar.sources="src/main/java,src/main/resources"
         -Dsonar.login=$SONAR_TOKEN
         -Dsonar.java.source=11
         --file pom.xml

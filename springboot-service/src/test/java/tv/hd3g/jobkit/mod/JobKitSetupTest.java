@@ -34,7 +34,7 @@ class JobKitSetupTest {
 	@BeforeEach
 	void init() throws Exception {
 		MockitoAnnotations.openMocks(this).close();
-		jobKitSetup = new JobKitSetup(resourceBundleMessageSource);
+		jobKitSetup = new JobKitSetup();
 	}
 
 	@Test
@@ -61,11 +61,6 @@ class JobKitSetupTest {
 	@Test
 	void testGetJobKitEngine() {
 		assertNotNull(jobKitSetup.getJobKitEngine(scheduledExecutor, executionEvent, backgroundServiceEvent));
-	}
-
-	@Test
-	void testGetExecutableFinder() {
-		assertNotNull(jobKitSetup.getExecutableFinder());
 	}
 
 	@Test

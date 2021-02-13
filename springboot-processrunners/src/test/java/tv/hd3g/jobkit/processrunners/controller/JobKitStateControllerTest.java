@@ -1,8 +1,5 @@
-package tv.hd3g.jobkit.mod.controller;
+package tv.hd3g.jobkit.processrunners.controller;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -11,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -32,17 +28,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import tv.hd3g.jobkit.engine.JobKitEngine;
-import tv.hd3g.jobkit.engine.status.JobKitEngineStatus;
-import tv.hd3g.jobkit.engine.status.SpoolerStatus;
-import tv.hd3g.jobkit.mod.BackgroundServiceId;
-import tv.hd3g.jobkit.mod.dto.BackgroundServiceIdDto;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles({ "DefaultMock" })
 class JobKitStateControllerTest {
 
-	private static final String baseMapping = JobKitStateController.class.getAnnotation(RequestMapping.class)
+	private static final String baseMapping = ProcessrunnersStateController.class.getAnnotation(RequestMapping.class)
 	        .value()[0];
 	private static final ResultMatcher statusOkUtf8 = ResultMatcher.matchAll(
 	        status().isOk(),
@@ -57,15 +49,13 @@ class JobKitStateControllerTest {
 	ObjectMapper objectMapper;
 	@Autowired
 	JobKitEngine jobKitEngine;
-	@Autowired
-	BackgroundServiceId backgroundServiceId;
 
 	HttpHeaders baseHeaders;
 
 	@BeforeEach
 	private void init() throws Exception {
 		MockitoAnnotations.openMocks(this).close();
-		Mockito.reset(jobKitEngine, backgroundServiceId);
+		Mockito.reset(jobKitEngine);
 		// DataGenerator.setupMock(request);
 
 		baseHeaders = new HttpHeaders();
@@ -73,30 +63,11 @@ class JobKitStateControllerTest {
 	}
 
 	@Test
-	void testGetLastStatus() throws Exception {
-		final var spoolerStatus = new SpoolerStatus(Set.of(), 1, false);
-		final var status = new JobKitEngineStatus(spoolerStatus, Set.of());
-		when(jobKitEngine.getLastStatus()).thenReturn(status);
-
-		mvc.perform(get(baseMapping + "/" + "status")
+	void testGetConf() throws Exception {
+		mvc.perform(get(baseMapping + "/" + "conf")
 		        .headers(baseHeaders))
 		        .andExpect(statusOkUtf8)
-		        .andExpect(jsonPath("$.lastStatus").isMap());
-
-		verify(jobKitEngine, times(1)).getLastStatus();
-	}
-
-	@Test
-	void testGetIds() throws Exception {
-		final var dto = new BackgroundServiceIdDto(Set.of());
-		when(backgroundServiceId.getAllRegistedAsDto()).thenReturn(dto);
-
-		mvc.perform(get(baseMapping + "/" + "ids")
-		        .headers(baseHeaders))
-		        .andExpect(statusOkUtf8)
-		        .andExpect(jsonPath("$.servicesIds").isArray());
-
-		verify(backgroundServiceId, times(1)).getAllRegistedAsDto();
+		        .andExpect(jsonPath("$.senderReference").value("send-ref-email"));
 	}
 
 }

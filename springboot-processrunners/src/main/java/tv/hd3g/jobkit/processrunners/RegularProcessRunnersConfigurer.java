@@ -1,4 +1,4 @@
-package tv.hd3g.jobkit.mod;
+package tv.hd3g.jobkit.processrunners;
 
 import java.io.File;
 import java.time.Duration;
@@ -14,8 +14,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.annotation.Validated;
 
-import tv.hd3g.jobkit.mod.dto.RegularProcessRunnerDto;
-import tv.hd3g.jobkit.mod.dto.RegularProcessRunnerListDto;
+import tv.hd3g.jobkit.processrunners.dto.RegularProcessRunnerDto;
+import tv.hd3g.jobkit.processrunners.dto.RegularProcessRunnerListDto;
 
 @Configuration
 @ConfigurationProperties(prefix = "jobkit.processrunners")

@@ -1,4 +1,4 @@
-package tv.hd3g.jobkit.mod.service;
+package tv.hd3g.jobkit.processrunners.service;
 
 import java.io.FileNotFoundException;
 

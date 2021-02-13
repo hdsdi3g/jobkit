@@ -1,5 +1,5 @@
 /*
- * This file is part of JobKit.
+ * This file is part of jobkit.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -16,11 +16,8 @@
  */
 package tv.hd3g.jobkit;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import tv.hd3g.commons.codepolicyvalidation.CheckPolicy;
 
-@Configuration
-@ComponentScan(basePackages = { "tv.hd3g.jobkit", "tv.hd3g.selfautorestdoc.mod" })
-public class Setup {
+class CodePolicyValidationTest extends CheckPolicy {
 
 }

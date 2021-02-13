@@ -1,4 +1,4 @@
-package tv.hd3g.jobkit.mod.dto;
+package tv.hd3g.jobkit.processrunners.dto;
 
 import java.io.File;
 import java.util.Objects;

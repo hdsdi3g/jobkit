@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import tv.hd3g.commons.authkit.CheckBefore;
 import tv.hd3g.jobkit.engine.JobKitEngine;
 import tv.hd3g.jobkit.mod.BackgroundServiceId;
-import tv.hd3g.jobkit.mod.RegularProcessRunnersConfigurer;
 import tv.hd3g.jobkit.mod.dto.BackgroundServiceIdDto;
 import tv.hd3g.jobkit.mod.dto.JobKitEngineStatusDto;
-import tv.hd3g.jobkit.mod.dto.RegularProcessRunnerListDto;
 
 @RestController
 @CheckBefore("jobkitState")
@@ -25,21 +23,12 @@ public class JobKitStateController {
 	@Autowired
 	private JobKitEngine jobKitEngine;
 	@Autowired
-	private RegularProcessRunnersConfigurer regularProcessRunnersConfigurer;
-	@Autowired
 	private BackgroundServiceId backgroundServiceId;
 
 	@GetMapping(value = "status")
 	@CheckBefore("jobkitStatus")
 	public ResponseEntity<JobKitEngineStatusDto> getLastStatus() {
 		final var result = new JobKitEngineStatusDto(jobKitEngine.getLastStatus());
-		return new ResponseEntity<>(result, OK);
-	}
-
-	@GetMapping(value = "conf")
-	@CheckBefore("jobkitConf")
-	public ResponseEntity<RegularProcessRunnerListDto> getConf() {
-		final var result = regularProcessRunnersConfigurer.makeConfigurationDto();
 		return new ResponseEntity<>(result, OK);
 	}
 

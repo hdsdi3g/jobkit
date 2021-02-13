@@ -20,6 +20,7 @@
 	<modules>
 		<module>engine</module>
 		<module>springboot-service</module>
+		<module>springboot-processrunners</module>
 	</modules>
 
 	<properties>
@@ -45,6 +46,11 @@
 			<dependency>
 				<groupId>tv.hd3g</groupId>
 				<artifactId>jobkit-engine</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>tv.hd3g</groupId>
+				<artifactId>jobkit</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>

@@ -1,4 +1,4 @@
-package tv.hd3g.jobkit.mod.service;
+package tv.hd3g.jobkit.processrunners.service;
 
 import static java.lang.System.currentTimeMillis;
 import static java.lang.System.lineSeparator;
@@ -50,11 +50,11 @@ import tv.hd3g.commons.mailkit.SendMailService;
 import tv.hd3g.jobkit.engine.BackgroundService;
 import tv.hd3g.jobkit.engine.JobKitEngine;
 import tv.hd3g.jobkit.mod.BackgroundServiceId;
-import tv.hd3g.jobkit.mod.RegularProcessRunnersConfigurer;
-import tv.hd3g.jobkit.mod.RegularProcessRunnersConfigurer.RegularProcessRunnerEntry;
-import tv.hd3g.jobkit.mod.RegularProcessRunnersConfigurer.RegularProcessRunnerEntry.AfterExecEntry;
-import tv.hd3g.jobkit.mod.service.RegularProcessRunnerServiceImpl.Task;
-import tv.hd3g.jobkit.mod.service.RegularProcessRunnerServiceImpl.Task.ProcessExecutionException;
+import tv.hd3g.jobkit.processrunners.RegularProcessRunnersConfigurer;
+import tv.hd3g.jobkit.processrunners.RegularProcessRunnersConfigurer.RegularProcessRunnerEntry;
+import tv.hd3g.jobkit.processrunners.RegularProcessRunnersConfigurer.RegularProcessRunnerEntry.AfterExecEntry;
+import tv.hd3g.jobkit.processrunners.service.RegularProcessRunnerServiceImpl.Task;
+import tv.hd3g.jobkit.processrunners.service.RegularProcessRunnerServiceImpl.Task.ProcessExecutionException;
 import tv.hd3g.processlauncher.CapturedStdOutErrTextRetention;
 import tv.hd3g.processlauncher.Exec;
 import tv.hd3g.processlauncher.ProcesslauncherBuilder;
