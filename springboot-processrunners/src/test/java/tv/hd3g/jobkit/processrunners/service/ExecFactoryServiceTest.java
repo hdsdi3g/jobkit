@@ -1,4 +1,4 @@
-package tv.hd3g.jobkit.mod.service;
+package tv.hd3g.jobkit.processrunners.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import tv.hd3g.jobkit.mod.service.ExecFactoryServiceImpl.FileNotFoundRuntimeException;
+import tv.hd3g.jobkit.processrunners.service.ExecFactoryServiceImpl.FileNotFoundRuntimeException;
 import tv.hd3g.processlauncher.cmdline.ExecutableFinder;
 import tv.hd3g.processlauncher.tool.ExecutableTool;
 

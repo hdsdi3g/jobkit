@@ -1,4 +1,4 @@
-package tv.hd3g.jobkit.mod;
+package tv.hd3g.jobkit.processrunners;
 
 import static java.time.temporal.ChronoUnit.NANOS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,9 +21,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import tv.hd3g.jobkit.mod.RegularProcessRunnersConfigurer.RegularProcessRunnerEntry;
-import tv.hd3g.jobkit.mod.RegularProcessRunnersConfigurer.RegularProcessRunnerEntry.AfterExecEntry;
-import tv.hd3g.jobkit.mod.dto.RegularProcessRunnerDto;
+import tv.hd3g.jobkit.processrunners.RegularProcessRunnersConfigurer.RegularProcessRunnerEntry;
+import tv.hd3g.jobkit.processrunners.RegularProcessRunnersConfigurer.RegularProcessRunnerEntry.AfterExecEntry;
+import tv.hd3g.jobkit.processrunners.dto.RegularProcessRunnerDto;
 
 class RegularProcessRunnersConfigurerTest {
 	static Random random = new Random();

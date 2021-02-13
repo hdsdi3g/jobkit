@@ -2,30 +2,26 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>jobkit</artifactId>
+	<artifactId>jobkit-processrunners</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Jobkit SpringBoot module</name>
-	<description>Execute as SpringBoot module onetime and scheduled Java jobs with dynamic queues and events</description>
+	<name>Jobkit SpringBoot ProcessRunners module</name>
+	<description>Execute external process scheduled regulary as SpringBoot module</description>
 
 	<parent>
 		<groupId>tv.hd3g</groupId>
 		<artifactId>jobkit-starter</artifactId>
-		<version>4.0.0-SNAPSHOT</version>
+		<version>3.0.3</version>
 	</parent>
 
 	<dependencies>
 		<dependency>
 			<groupId>tv.hd3g</groupId>
-			<artifactId>jobkit-engine</artifactId>
+			<artifactId>jobkit</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>tv.hd3g</groupId>
-			<artifactId>selfautorestdoc</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
+			<artifactId>processlauncher</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -50,36 +46,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>ch.qos.logback</groupId>
-					<artifactId>logback-classic</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.apache.logging.log4j</groupId>
-					<artifactId>log4j-to-slf4j</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>jul-to-slf4j</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
