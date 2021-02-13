@@ -19,6 +19,7 @@
 
 	<modules>
 		<module>engine</module>
+		<module>watchfolder</module>
 		<module>springboot-service</module>
 		<module>springboot-processrunners</module>
 	</modules>

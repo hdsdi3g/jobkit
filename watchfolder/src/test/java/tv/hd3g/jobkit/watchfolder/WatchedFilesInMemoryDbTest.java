@@ -14,7 +14,7 @@
  * Copyright (C) hdsdi3g for hd3g.tv 2020
  *
  */
-package tv.hd3g.jobkit.engine.watchfolder;
+package tv.hd3g.jobkit.watchfolder;
 
 import static java.nio.file.StandardOpenOption.APPEND;
 import static java.nio.file.StandardOpenOption.CREATE;
@@ -23,9 +23,9 @@ import static java.nio.file.StandardOpenOption.WRITE;
 import static java.util.stream.Collectors.toUnmodifiableSet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static tv.hd3g.jobkit.engine.watchfolder.WatchFolderPickupType.DIRS_ONLY;
-import static tv.hd3g.jobkit.engine.watchfolder.WatchFolderPickupType.FILES_DIRS;
-import static tv.hd3g.jobkit.engine.watchfolder.WatchFolderPickupType.FILES_ONLY;
+import static tv.hd3g.jobkit.watchfolder.WatchFolderPickupType.DIRS_ONLY;
+import static tv.hd3g.jobkit.watchfolder.WatchFolderPickupType.FILES_DIRS;
+import static tv.hd3g.jobkit.watchfolder.WatchFolderPickupType.FILES_ONLY;
 
 import java.io.File;
 import java.io.IOException;
