@@ -14,7 +14,7 @@
  * Copyright (C) hdsdi3g for hd3g.tv 2020
  *
  */
-package tv.hd3g.jobkit.engine.watchfolder;
+package tv.hd3g.jobkit.watchfolder;
 
 import static java.util.stream.Collectors.toUnmodifiableSet;
 import static tv.hd3g.transfertfiles.AbstractFile.normalizePath;

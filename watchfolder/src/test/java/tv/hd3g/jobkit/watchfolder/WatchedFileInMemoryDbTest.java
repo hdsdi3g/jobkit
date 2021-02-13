@@ -14,7 +14,7 @@
  * Copyright (C) hdsdi3g for hd3g.tv 2020
  *
  */
-package tv.hd3g.jobkit.engine.watchfolder;
+package tv.hd3g.jobkit.watchfolder;
 
 import static java.time.Duration.ZERO;
 import static java.time.Duration.ofDays;
@@ -24,9 +24,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static tv.hd3g.jobkit.engine.watchfolder.WatchFolderPickupType.DIRS_ONLY;
-import static tv.hd3g.jobkit.engine.watchfolder.WatchFolderPickupType.FILES_DIRS;
-import static tv.hd3g.jobkit.engine.watchfolder.WatchFolderPickupType.FILES_ONLY;
+import static tv.hd3g.jobkit.watchfolder.WatchFolderPickupType.DIRS_ONLY;
+import static tv.hd3g.jobkit.watchfolder.WatchFolderPickupType.FILES_DIRS;
+import static tv.hd3g.jobkit.watchfolder.WatchFolderPickupType.FILES_ONLY;
 
 import java.time.Duration;
 import java.util.Set;
