@@ -15,9 +15,5 @@
 	</parent>
 
 	<dependencies>
-		<dependency>
-			<groupId>tv.hd3g</groupId>
-			<artifactId>transfertfiles</artifactId>
-		</dependency>
 	</dependencies>
 </project>
