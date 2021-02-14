@@ -183,7 +183,7 @@ class SpoolExecutorTest {
 		}, name, 0, e -> {
 			throw new IllegalArgumentException("This is a test error, this is normal if you see it in log message...");
 		}));
-		assertTrue(smCmd0.await(100, MILLISECONDS));
+		assertTrue(smCmd0.await(500, MILLISECONDS));
 
 		final var smCmd1 = new CountDownLatch(2);
 		assertTrue(spoolExecutor.addToQueue(() -> {
@@ -191,7 +191,7 @@ class SpoolExecutorTest {
 		}, name, 0, e -> {
 			smCmd1.countDown();
 		}));
-		assertTrue(smCmd1.await(100, MILLISECONDS));
+		assertTrue(smCmd1.await(500, MILLISECONDS));
 	}
 
 	@Test
