@@ -1,8 +1,8 @@
 # Spring conf
-config/application.yml
-config/application-dev.yml
-config/application.properties
-config/log4j2.xml
+**/config/application.yml
+**/config/application-dev.yml
+**/config/application.properties
+**/config/log4j2.xml
 
 # Windows / macOS
 desktop.ini
