@@ -125,18 +125,27 @@ class WatchedFilesInMemoryDbTest {
 		watchedFilesDb.setup(observedFolder, FILES_ONLY);
 
 		write("thisfine5.ok");
+		final var thisfine5 = toAbsolutePath("thisfine5.ok");
 		var w = watchedFilesDb.update(fs);
 		assertWatchedFiles(w, Set.of(), Set.of(), 1);
 
 		Thread.sleep(100);// NOSONAR
-		FileUtils.touch(toAbsolutePath("thisfine5.ok"));
+		FileUtils.touch(thisfine5);
+		final var firstDate = thisfine5.lastModified();
 		w = watchedFilesDb.update(fs);
 		assertWatchedFiles(w, Set.of(), Set.of(), 1);
 
 		Thread.sleep(100);// NOSONAR
-		FileUtils.touch(toAbsolutePath("thisfine5.ok"));
-		w = watchedFilesDb.update(fs);
-		assertWatchedFiles(w, Set.of(), Set.of(), 1);
+		FileUtils.touch(thisfine5);
+		final var lastDate = thisfine5.lastModified();
+
+		if (lastDate != firstDate) {
+			/**
+			 * This filesystem can't handle dates at ms precision
+			 */
+			w = watchedFilesDb.update(fs);
+			assertWatchedFiles(w, Set.of(), Set.of(), 1);
+		}
 
 		w = watchedFilesDb.update(fs);
 		assertWatchedFiles(w, Set.of("thisfine5.ok"), Set.of(), 1);
