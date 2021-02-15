@@ -37,8 +37,6 @@ public class SpoolExecutor {
 		shutdown = new AtomicBoolean(false);
 	}
 
-	// SpoolJobStatus
-
 	public boolean addToQueue(final Runnable command,
 	                          final String name,
 	                          final int priority,
@@ -144,9 +142,9 @@ public class SpoolExecutor {
 			final long startTime = System.currentTimeMillis();
 			Exception error = null;
 			try {
-				log.info("Start new command \"{}\" by \"{}\"", commandName, name);
+				log.debug("Start new command \"{}\" by \"{}\"", commandName, name);
 				command.run();
-				log.info("Ends correcly command \"{}\" by \"{}\", after {} sec", commandName, name,
+				log.debug("Ends correcly command \"{}\" by \"{}\", after {} sec", commandName, name,
 				        (System.currentTimeMillis() - startTime) / 1000f);
 			} catch (final Exception e) {
 				error = e;
