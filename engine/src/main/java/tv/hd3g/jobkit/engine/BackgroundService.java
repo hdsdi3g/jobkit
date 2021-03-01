@@ -54,7 +54,8 @@ public class BackgroundService {
 	private void ifNextRunReferenceScheduled(final Runnable ifReady) {
 		if (nextRunReference != null
 		    && nextRunReference.isDone() == false
-		    && nextRunReference.isCancelled() == false) {
+		    && nextRunReference.isCancelled() == false
+		    && nextRunReference.getDelay(MILLISECONDS) >= 0) {
 			ifReady.run();
 		}
 	}
