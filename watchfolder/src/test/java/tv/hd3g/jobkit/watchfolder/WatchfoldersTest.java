@@ -67,13 +67,13 @@ class WatchfoldersTest {
 		observedFolder.setTargetFolder("file://localhost/" + new File("").getAbsolutePath());
 		jobKitEngine = new FlatJobKitEngine();
 
-		when(folderActivity.getPickUpType(eq(observedFolder))).thenReturn(pickUp);
+		when(folderActivity.getPickUpType(observedFolder)).thenReturn(pickUp);
 		when(watchedFilesDb.update(any(AbstractFileSystemURL.class))).thenReturn(watchedFiles);
 	}
 
 	@AfterEach
 	void close() throws InterruptedException {
-		verify(watchedFilesDb, times(1)).setup(eq(observedFolder), eq(pickUp));
+		verify(watchedFilesDb, times(1)).setup(eq(observedFolder), eq(pickUp));// NOSONAR S6068
 	}
 
 	@Test
@@ -105,7 +105,7 @@ class WatchfoldersTest {
 		 */
 		observedFolder.setTargetFolder("file://localhost/" + new File("").getAbsolutePath());
 		jobKitEngine.runAllServicesOnce();
-		verify(folderActivity, times(1)).onStartScans(eq(List.of(observedFolder)));
+		verify(folderActivity, times(1)).onStartScans(List.of(observedFolder));
 		verify(folderActivity, times(1)).onScanErrorFolder(eq(observedFolder), any(Exception.class));
 	}
 
@@ -119,43 +119,43 @@ class WatchfoldersTest {
 		jobKitEngine.runAllServicesOnce();
 
 		assertFalse(jobKitEngine.isEmptyActiveServicesList());
-		verify(folderActivity, times(1)).onStartScans(eq(List.of(observedFolder)));
-		verify(folderActivity, times(1)).onBeforeScan(eq(observedFolder));
+		verify(folderActivity, times(1)).onStartScans(List.of(observedFolder));
+		verify(folderActivity, times(1)).onBeforeScan(observedFolder);
 		verify(watchedFilesDb, times(1)).update(any(AbstractFileSystemURL.class));
 		verify(folderActivity, times(1)).onAfterScan(eq(observedFolder), any(Duration.class), eq(watchedFiles));
-		verify(folderActivity, times(0)).onStopScans(eq(List.of(observedFolder)));
+		verify(folderActivity, times(0)).onStopScans(List.of(observedFolder));
 
 		watchfolders.stopScans();
 		jobKitEngine.runAllServicesOnce();
 
 		assertTrue(jobKitEngine.isEmptyActiveServicesList());
-		verify(folderActivity, times(1)).onStartScans(eq(List.of(observedFolder)));
-		verify(folderActivity, times(1)).onBeforeScan(eq(observedFolder));
+		verify(folderActivity, times(1)).onStartScans(List.of(observedFolder));
+		verify(folderActivity, times(1)).onBeforeScan(observedFolder);
 		verify(watchedFilesDb, times(1)).update(any(AbstractFileSystemURL.class));
 		verify(folderActivity, times(1)).onAfterScan(eq(observedFolder), any(Duration.class), eq(watchedFiles));
-		verify(folderActivity, times(1)).onStopScans(eq(List.of(observedFolder)));
+		verify(folderActivity, times(1)).onStopScans(List.of(observedFolder));
 
 		watchfolders.startScans();
 		watchfolders.startScans();
 		jobKitEngine.runAllServicesOnce();
 
 		assertFalse(jobKitEngine.isEmptyActiveServicesList());
-		verify(folderActivity, times(2)).onStartScans(eq(List.of(observedFolder)));
-		verify(folderActivity, times(2)).onBeforeScan(eq(observedFolder));
+		verify(folderActivity, times(2)).onStartScans(List.of(observedFolder));
+		verify(folderActivity, times(2)).onBeforeScan(observedFolder);
 		verify(watchedFilesDb, times(2)).update(any(AbstractFileSystemURL.class));
 		verify(folderActivity, times(2)).onAfterScan(eq(observedFolder), any(Duration.class), eq(watchedFiles));
-		verify(folderActivity, times(1)).onStopScans(eq(List.of(observedFolder)));
+		verify(folderActivity, times(1)).onStopScans(List.of(observedFolder));
 
 		watchfolders.stopScans();
 		watchfolders.stopScans();
 		jobKitEngine.runAllServicesOnce();
 
 		assertTrue(jobKitEngine.isEmptyActiveServicesList());
-		verify(folderActivity, times(2)).onStartScans(eq(List.of(observedFolder)));
-		verify(folderActivity, times(2)).onBeforeScan(eq(observedFolder));
+		verify(folderActivity, times(2)).onStartScans(List.of(observedFolder));
+		verify(folderActivity, times(2)).onBeforeScan(observedFolder);
 		verify(watchedFilesDb, times(2)).update(any(AbstractFileSystemURL.class));
 		verify(folderActivity, times(2)).onAfterScan(eq(observedFolder), any(Duration.class), eq(watchedFiles));
-		verify(folderActivity, times(2)).onStopScans(eq(List.of(observedFolder)));
+		verify(folderActivity, times(2)).onStopScans(List.of(observedFolder));
 
 		verify(folderActivity, times(0)).onScanErrorFolder(any(ObservedFolder.class), any(Exception.class));
 	}

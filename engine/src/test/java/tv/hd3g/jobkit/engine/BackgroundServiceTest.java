@@ -69,7 +69,7 @@ class BackgroundServiceTest {
 
 		when(scheduledExecutor.schedule(any(Runnable.class), eq(timedInterval), eq(MILLISECONDS)))
 		        .then(invocation -> nextRunReference);
-		when(spooler.getExecutor(eq(spoolName))).thenReturn(spoolExecutor);
+		when(spooler.getExecutor(spoolName)).thenReturn(spoolExecutor);
 		when(nextRunReference.isDone()).thenReturn(false);
 		when(nextRunReference.isCancelled()).thenReturn(false);
 	}
@@ -156,7 +156,7 @@ class BackgroundServiceTest {
 		scheduledCommand.run();
 		when(nextRunReference.isDone()).thenReturn(true);
 
-		verify(spooler, only()).getExecutor(eq(spoolName));
+		verify(spooler, only()).getExecutor(spoolName);
 		verify(spoolExecutor, only())
 		        .addToQueue(commandCaptor.capture(), eq(name), eq(0), afterRunCommandCaptor.capture());
 
@@ -235,7 +235,7 @@ class BackgroundServiceTest {
 
 		verify(scheduledExecutor, times(1))
 		        .schedule(any(Runnable.class), eq(timedInterval), eq(MILLISECONDS));
-		verify(nextRunReference, times(1)).cancel(eq(false));
+		verify(nextRunReference, times(1)).cancel(false);
 	}
 
 	@Test
@@ -247,7 +247,7 @@ class BackgroundServiceTest {
 
 		verify(scheduledExecutor, times(2))
 		        .schedule(any(Runnable.class), eq(timedInterval), eq(MILLISECONDS));
-		verify(nextRunReference, times(1)).cancel(eq(false));
+		verify(nextRunReference, times(1)).cancel(false);
 	}
 
 	@Test
@@ -255,7 +255,7 @@ class BackgroundServiceTest {
 		timedInterval = TimeUnit.HOURS.toMillis(1);
 		when(scheduledExecutor.schedule(any(Runnable.class), eq(timedInterval), eq(MILLISECONDS)))
 		        .then(invocation -> nextRunReference);
-		when(nextRunReference.getDelay(eq(MILLISECONDS))).thenReturn(timedInterval);
+		when(nextRunReference.getDelay(MILLISECONDS)).thenReturn(timedInterval);
 
 		backgroundService.setTimedInterval(timedInterval, MILLISECONDS).enable();
 		backgroundService.setTimedInterval(timedInterval * 2l, MILLISECONDS);
@@ -267,7 +267,7 @@ class BackgroundServiceTest {
 		        .schedule(any(Runnable.class), eq(timedInterval), eq(MILLISECONDS));
 		verify(scheduledExecutor, times(1))
 		        .schedule(any(Runnable.class), eq(timedInterval * 2l), eq(MILLISECONDS));
-		verify(nextRunReference, times(1)).cancel(eq(false));
+		verify(nextRunReference, times(1)).cancel(false);
 	}
 
 	@Test
@@ -275,7 +275,7 @@ class BackgroundServiceTest {
 		timedInterval = TimeUnit.HOURS.toMillis(1);
 		when(scheduledExecutor.schedule(any(Runnable.class), eq(timedInterval), eq(MILLISECONDS)))
 		        .then(invocation -> nextRunReference);
-		when(nextRunReference.getDelay(eq(MILLISECONDS))).thenReturn(timedInterval);
+		when(nextRunReference.getDelay(MILLISECONDS)).thenReturn(timedInterval);
 
 		backgroundService.setTimedInterval(timedInterval, MILLISECONDS).enable();
 		verify(scheduledExecutor, times(1))
@@ -290,7 +290,7 @@ class BackgroundServiceTest {
 
 		verify(scheduledExecutor, only())
 		        .schedule(any(Runnable.class), eq(timedInterval), eq(MILLISECONDS));
-		verify(nextRunReference, never()).cancel(eq(false));
+		verify(nextRunReference, never()).cancel(false);
 
 		verify(spoolExecutor, only())
 		        .addToQueue(any(Runnable.class), eq(name), eq(0), afterRunCommandCaptor.capture());
@@ -324,7 +324,7 @@ class BackgroundServiceTest {
 
 		verify(scheduledExecutor, only())
 		        .schedule(any(Runnable.class), eq(timedInterval), eq(MILLISECONDS));
-		verify(nextRunReference, never()).cancel(eq(false));
+		verify(nextRunReference, never()).cancel(false);
 
 		verify(spoolExecutor, only())
 		        .addToQueue(any(Runnable.class), eq(name), eq(0), afterRunCommandCaptor.capture());
