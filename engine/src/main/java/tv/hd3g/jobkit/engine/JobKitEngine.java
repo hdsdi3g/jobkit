@@ -1,19 +1,21 @@
 package tv.hd3g.jobkit.engine;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.stream.Collectors.toUnmodifiableSet;
 
 import java.time.Duration;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import tv.hd3g.jobkit.engine.status.JobKitEngineStatus;
 
 public class JobKitEngine implements JobTrait {
 
-	private final ConcurrentHashMap<String, BackgroundService> backgroundServices;
+	private final List<BackgroundService> backgroundServices;
 	private final ScheduledExecutorService scheduledExecutor;
 	private final BackgroundServiceEvent backgroundServiceEvent;
 	private final Spooler spooler;
@@ -24,7 +26,7 @@ public class JobKitEngine implements JobTrait {
 		this.scheduledExecutor = scheduledExecutor;
 		this.backgroundServiceEvent = backgroundServiceEvent;
 		spooler = new Spooler(executionEvent);
-		backgroundServices = new ConcurrentHashMap<>();
+		backgroundServices = Collections.synchronizedList(new ArrayList<>());
 	}
 
 	protected JobKitEngine() {
@@ -50,13 +52,14 @@ public class JobKitEngine implements JobTrait {
 	 * @return a new service or the existing service for "name"
 	 */
 	public BackgroundService createService(final String name, final String spoolName, final Runnable task) {
-		return backgroundServices.computeIfAbsent(spoolName,
-		        sName -> new BackgroundService(name,
-		                sName,
-		                spooler,
-		                scheduledExecutor,
-		                backgroundServiceEvent,
-		                task));
+		final var service = new BackgroundService(name,
+		        spoolName,
+		        spooler,
+		        scheduledExecutor,
+		        backgroundServiceEvent,
+		        task);
+		backgroundServices.add(service);
+		return service;
 	}
 
 	/**
@@ -92,8 +95,7 @@ public class JobKitEngine implements JobTrait {
 	 * Don't forget to shutdown the scheduled executor.
 	 */
 	public void shutdown() {
-		backgroundServices.entrySet().stream()
-		        .forEach(bS -> bS.getValue().disable());
+		backgroundServices.forEach(BackgroundService::disable);
 		spooler.shutdown();
 	}
 
@@ -107,9 +109,9 @@ public class JobKitEngine implements JobTrait {
 
 	public JobKitEngineStatus getLastStatus() {
 		final var spoolerStatus = spooler.getLastStatus();
-		final var backgroundServicesStatus = backgroundServices.entrySet().stream()
-		        .map(entry -> entry.getValue().getLastStatus())
-		        .collect(Collectors.toUnmodifiableSet());
+		final var backgroundServicesStatus = backgroundServices.stream()
+		        .map(BackgroundService::getLastStatus)
+		        .collect(toUnmodifiableSet());
 		return new JobKitEngineStatus(spoolerStatus, backgroundServicesStatus);
 	}
 
