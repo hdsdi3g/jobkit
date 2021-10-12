@@ -16,6 +16,8 @@
  */
 package tv.hd3g.jobkit.watchfolder;
 
+import static java.util.stream.Collectors.joining;
+
 import java.util.Set;
 
 import tv.hd3g.transfertfiles.CachedFileAttributes;
@@ -49,6 +51,19 @@ public class WatchedFiles {
 
 	public int getTotalFiles() {
 		return totalFiles;
+	}
+
+	@Override
+	public String toString() {
+		final var builder = new StringBuilder();
+		builder.append("WatchedFiles [founded=");
+		builder.append(founded.stream().map(CachedFileAttributes::getPath).collect(joining(", ")));
+		builder.append(", losted=");
+		builder.append(losted.stream().map(CachedFileAttributes::getPath).collect(joining(", ")));
+		builder.append(", totalFiles=");
+		builder.append(totalFiles);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }
