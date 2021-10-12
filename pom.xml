@@ -26,7 +26,7 @@
 	<properties>
 		<processlauncher.version>5.0.0</processlauncher.version>
 		<selfautorestdoc.version>0.0.5</selfautorestdoc.version>
-		<transfertfiles.version>0.0.6</transfertfiles.version>
+		<transfertfiles.version>0.0.7</transfertfiles.version>
 		<commons.text.version>1.9</commons.text.version>
 	</properties>
 
