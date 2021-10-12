@@ -177,12 +177,14 @@ public class Watchfolders {
 	}
 
 	private BackgroundService retryInError(final ObservedFolder newInError) {
-		return jobKitEngine.createService("Retry for watchfolders in error " + getWFName(),
-		        spoolScans, () -> {
+		return jobKitEngine.createService("Retry for watchfolder in error "
+		                                  + getWFName() + " > " + newInError.getLabel(),
+		        spoolScans,
+		        () -> {
 			        final var label = newInError.getLabel();
 			        log.info("Retry to establish a connection to {}...", label);
 			        try (var fs = newInError.createFileSystem()) {
-				        fs.getRootPath().toCachedList().count();
+				        fs.getRootPath().toCachedList().count();// NOSONAR S2201
 			        } catch (final IOException e) {
 				        throw new IORuntimeException(e);
 			        }
@@ -198,7 +200,7 @@ public class Watchfolders {
 			serviceRetry.setTimedInterval(timeBetweenScans);
 			serviceRetry.setRetryAfterTimeFactor(10);
 			serviceRetry.setPriority(service.getPriority() - 1);
-			onErrorObservedFolders.put(oF, service);
+			onErrorObservedFolders.put(oF, serviceRetry);
 			serviceRetry.enable();
 		});
 	}
