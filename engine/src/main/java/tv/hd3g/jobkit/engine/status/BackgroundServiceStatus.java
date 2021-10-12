@@ -76,4 +76,41 @@ public class BackgroundServiceStatus {
 		return task;
 	}
 
+	@Override
+	public String toString() {
+		final var builder = new StringBuilder();
+		builder.append("BackgroundServiceStatus [");
+		if (name != null) {
+			builder.append("name=");
+			builder.append(name);
+			builder.append(", ");
+		}
+		if (spoolName != null) {
+			builder.append("spoolName=");
+			builder.append(spoolName);
+			builder.append(", ");
+		}
+		builder.append("enabled=");
+		builder.append(enabled);
+		builder.append(", nextRunReferenceDelay=");
+		builder.append(nextRunReferenceDelay);
+		builder.append(", timedInterval=");
+		builder.append(timedInterval);
+		builder.append(", previousScheduledDate=");
+		builder.append(previousScheduledDate);
+		builder.append(", priority=");
+		builder.append(priority);
+		builder.append(", retryAfterTimeFactor=");
+		builder.append(retryAfterTimeFactor);
+		builder.append(", sequentialErrorCount=");
+		builder.append(sequentialErrorCount);
+		builder.append(", ");
+		if (task != null) {
+			builder.append("task=");
+			builder.append(task.getClass());
+		}
+		builder.append("]");
+		return builder.toString();
+	}
+
 }
