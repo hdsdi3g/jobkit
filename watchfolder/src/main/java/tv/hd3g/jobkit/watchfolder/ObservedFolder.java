@@ -21,13 +21,13 @@ import static tv.hd3g.transfertfiles.AbstractFile.normalizePath;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.time.Duration;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.UnaryOperator;
 
-import tv.hd3g.commons.IORuntimeException;
 import tv.hd3g.transfertfiles.AbstractFile;
 import tv.hd3g.transfertfiles.AbstractFileSystemURL;
 
@@ -70,7 +70,7 @@ public class ObservedFolder {
 				label = checkParse.toString();
 			}
 		} catch (final IOException e1) {
-			throw new IORuntimeException("Can't load: \"" + targetFolder + "\"");
+			throw new UncheckedIOException(new IOException("Can't load: \"" + targetFolder + "\""));
 		}
 
 		allowedExtentions = Optional.ofNullable(allowedExtentions).orElse(Set.of()).stream()

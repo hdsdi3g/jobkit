@@ -29,6 +29,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
+import java.io.UncheckedIOException;
 import java.nio.file.NoSuchFileException;
 import java.time.Duration;
 import java.util.List;
@@ -39,7 +40,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import tv.hd3g.commons.IORuntimeException;
 import tv.hd3g.jobkit.engine.flat.FlatJobKitEngine;
 import tv.hd3g.transfertfiles.AbstractFileSystemURL;
 
@@ -93,12 +93,12 @@ class WatchfoldersTest {
 		verify(folderActivity, times(1)).onScanErrorFolder(eq(observedFolder),
 		        argThat(f -> f.getCause() instanceof NoSuchFileException));
 
-		assertThrows(IORuntimeException.class, () -> jobKitEngine.runAllServicesOnce());
+		assertThrows(UncheckedIOException.class, () -> jobKitEngine.runAllServicesOnce());
 
 		assertFalse(jobKitEngine.isEmptyActiveServicesList());
 		verify(folderActivity, times(1)).onScanErrorFolder(eq(observedFolder), any(Exception.class));
 
-		assertThrows(IORuntimeException.class, () -> jobKitEngine.runAllServicesOnce());
+		assertThrows(UncheckedIOException.class, () -> jobKitEngine.runAllServicesOnce());
 
 		/**
 		 * Back to normal

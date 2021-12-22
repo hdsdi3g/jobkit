@@ -21,6 +21,7 @@ import static java.util.stream.Collectors.toUnmodifiableList;
 import static java.util.stream.Collectors.toUnmodifiableMap;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +36,6 @@ import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import tv.hd3g.commons.IORuntimeException;
 import tv.hd3g.jobkit.engine.BackgroundService;
 import tv.hd3g.jobkit.engine.JobKitEngine;
 
@@ -104,7 +104,7 @@ public class Watchfolders {
 			        () -> eventActivity.onAfterScan(folder, scanTime, scanResult), onOneShotError);
 			log.trace("Ends Watchfolder scan for {} :: {}", label, fs);
 		} catch (final IOException e) {
-			throw new IORuntimeException(e);
+			throw new UncheckedIOException(e);
 		}
 	}
 
@@ -128,7 +128,7 @@ public class Watchfolders {
 				        try {
 					        internalScan(oF);
 					        return false;
-				        } catch (final IORuntimeException e) {
+				        } catch (final UncheckedIOException e) {
 					        log.error("Problem during scan with {}, cancel scans for it", oF.getLabel(), e);
 					        jobKitEngine.runOneShot("Problem during scan with watchfolder " + oF.getLabel(),
 					                spoolEvents, 0,
@@ -186,7 +186,7 @@ public class Watchfolders {
 			        try (var fs = newInError.createFileSystem()) {
 				        fs.getRootPath().toCachedList().count();// NOSONAR S2201
 			        } catch (final IOException e) {
-				        throw new IORuntimeException(e);
+				        throw new UncheckedIOException(e);
 			        }
 			        log.info("Connection is ok. Back to normal for {}", label);
 			        Optional.ofNullable(onErrorObservedFolders.remove(newInError))

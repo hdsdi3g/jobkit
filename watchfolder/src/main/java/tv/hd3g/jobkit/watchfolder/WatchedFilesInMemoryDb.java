@@ -23,6 +23,7 @@ import static org.apache.commons.io.FilenameUtils.getExtension;
 import static tv.hd3g.jobkit.watchfolder.WatchFolderPickupType.FILES_DIRS;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -33,7 +34,6 @@ import java.util.function.Predicate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import tv.hd3g.commons.IORuntimeException;
 import tv.hd3g.transfertfiles.AbstractFile;
 import tv.hd3g.transfertfiles.AbstractFileSystemURL;
 import tv.hd3g.transfertfiles.CachedFileAttributes;
@@ -73,7 +73,7 @@ public class WatchedFilesInMemoryDb implements WatchedFilesDb {
 		try (var fs = observedFolder.createFileSystem()) {
 			/** try only to load FileSystem/configured URL */
 		} catch (final IOException e) {
-			throw new IORuntimeException("Can't load FileSystem", e);
+			throw new UncheckedIOException(new IOException("Can't load FileSystem", e));
 		}
 		if (observedFolder.isRecursive() == false) {
 			maxDeep = 0;

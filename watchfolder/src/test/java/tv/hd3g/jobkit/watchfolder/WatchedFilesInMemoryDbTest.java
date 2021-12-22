@@ -29,6 +29,7 @@ import static tv.hd3g.jobkit.watchfolder.WatchFolderPickupType.FILES_ONLY;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.util.Collection;
 import java.util.Set;
@@ -38,7 +39,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import tv.hd3g.commons.IORuntimeException;
 import tv.hd3g.transfertfiles.AbstractFileSystemURL;
 import tv.hd3g.transfertfiles.CachedFileAttributes;
 import tv.hd3g.transfertfiles.local.LocalFile;
@@ -291,7 +291,7 @@ class WatchedFilesInMemoryDbTest {
 			FileUtils.forceMkdirParent(f);
 			Files.write(f.toPath(), Set.of(String.valueOf(System.nanoTime())), APPEND, SYNC, WRITE, CREATE);
 		} catch (final IOException e) {
-			throw new IORuntimeException(e);
+			throw new UncheckedIOException(e);
 		}
 	}
 
@@ -302,7 +302,7 @@ class WatchedFilesInMemoryDbTest {
 				FileUtils.forceDelete(f);
 			}
 		} catch (final IOException e) {
-			throw new IORuntimeException(e);
+			throw new UncheckedIOException(e);
 		}
 	}
 
