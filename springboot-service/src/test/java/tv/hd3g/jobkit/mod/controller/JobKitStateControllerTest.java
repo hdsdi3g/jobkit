@@ -44,9 +44,10 @@ class JobKitStateControllerTest {
 
 	private static final String baseMapping = JobKitStateController.class.getAnnotation(RequestMapping.class)
 	        .value()[0];
-	private static final ResultMatcher statusOkUtf8 = ResultMatcher.matchAll(
-	        status().isOk(),
-	        content().contentType(APPLICATION_JSON_VALUE));
+	private static final ResultMatcher[] statusOkUtf8 = new ResultMatcher[] {
+	                                                                          status().isOk(),
+	                                                                          content().contentType(
+	                                                                                  APPLICATION_JSON_VALUE) };
 
 	@Mock
 	HttpServletRequest request;
@@ -80,7 +81,7 @@ class JobKitStateControllerTest {
 
 		mvc.perform(get(baseMapping + "/" + "status")
 		        .headers(baseHeaders))
-		        .andExpect(statusOkUtf8)
+		        .andExpectAll(statusOkUtf8)
 		        .andExpect(jsonPath("$.lastStatus").isMap());
 
 		verify(jobKitEngine, times(1)).getLastStatus();
@@ -93,7 +94,7 @@ class JobKitStateControllerTest {
 
 		mvc.perform(get(baseMapping + "/" + "ids")
 		        .headers(baseHeaders))
-		        .andExpect(statusOkUtf8)
+		        .andExpectAll(statusOkUtf8)
 		        .andExpect(jsonPath("$.servicesIds").isArray());
 
 		verify(backgroundServiceId, times(1)).getAllRegistedAsDto();
