@@ -13,7 +13,7 @@
     <parent>
         <groupId>tv.hd3g.commons</groupId>
         <artifactId>starter</artifactId>
-        <version>7.0.0</version>
+        <version>8.0.0</version>
     </parent>
 
     <modules>
@@ -23,9 +23,10 @@
     </modules>
 
     <properties>
-        <processlauncher.version>6.0.4</processlauncher.version>
-        <selfautorestdoc.version>0.2.2</selfautorestdoc.version>
-        <transfertfiles.version>0.2.1</transfertfiles.version>
+        <interfaces.version>8.0.0</interfaces.version>
+        <processlauncher.version>6.0.5</processlauncher.version>
+        <selfautorestdoc.version>0.2.3</selfautorestdoc.version>
+        <transfertfiles.version>1.0.0</transfertfiles.version>
         <commons.text.version>1.9</commons.text.version>
     </properties>
 

@@ -16,11 +16,11 @@
  */
 package tv.hd3g.testtools;
 
-import static com.github.javafaker.Faker.instance;
 import static java.net.InetAddress.getByName;
 import static java.time.Duration.ofDays;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.IntStream.range;
+import static net.datafaker.Faker.instance;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -41,8 +41,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.text.RandomStringGenerator;
 import org.mockito.Mockito;
 
-import com.github.javafaker.Animal;
-import com.github.javafaker.service.RandomService;
+import net.datafaker.Animal;
+import net.datafaker.service.RandomService;
 
 public class DataGenerator {
 	public final static RandomService random = instance().random();
