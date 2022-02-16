@@ -25,7 +25,7 @@ public enum WatchFolderPickupType {
 	private final boolean pickUpFiles;
 	private final boolean pickUpDirs;
 
-	private WatchFolderPickupType(final boolean pickUpFiles, final boolean pickUpDirs) {
+	WatchFolderPickupType(final boolean pickUpFiles, final boolean pickUpDirs) {
 		this.pickUpFiles = pickUpFiles;
 		this.pickUpDirs = pickUpDirs;
 	}

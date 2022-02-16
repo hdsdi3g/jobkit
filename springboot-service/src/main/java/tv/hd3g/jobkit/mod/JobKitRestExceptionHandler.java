@@ -17,6 +17,7 @@
 package tv.hd3g.jobkit.mod;
 
 import java.util.Map;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,6 +43,7 @@ public class JobKitRestExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(JobKitRestException.class)
 	protected ResponseEntity<Object> handleRESTException(final JobKitRestException e, final WebRequest request) {
 		log.warn("REST Error for {}", request.getDescription(true), e);
-		return new ResponseEntity<>(Map.of("message", e.getMessage()), HttpStatus.resolve(e.getReturnCode()));
+		return new ResponseEntity<>(Map.of("message", e.getMessage()),
+		        Optional.ofNullable(HttpStatus.resolve(e.getReturnCode())).orElse(HttpStatus.INTERNAL_SERVER_ERROR));
 	}
 }

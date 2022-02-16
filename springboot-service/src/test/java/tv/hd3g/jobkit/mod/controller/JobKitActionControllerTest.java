@@ -3,7 +3,6 @@ package tv.hd3g.jobkit.mod.controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -92,7 +91,7 @@ class JobKitActionControllerTest {
 		        .headers(baseHeaders))
 		        .andExpect(statusOk);
 
-		verify(backgroundServiceId, times(1)).getByUUID(eq(uuid));
+		verify(backgroundServiceId, times(1)).getByUUID(uuid);
 		verify(backgroundService, times(1)).enable();
 	}
 
@@ -102,7 +101,7 @@ class JobKitActionControllerTest {
 		        .headers(baseHeaders))
 		        .andExpect(statusOk);
 
-		verify(backgroundServiceId, times(1)).getByUUID(eq(uuid));
+		verify(backgroundServiceId, times(1)).getByUUID(uuid);
 		verify(backgroundService, times(1)).disable();
 	}
 
@@ -113,7 +112,7 @@ class JobKitActionControllerTest {
 		        .headers(baseHeaders))
 		        .andExpect(statusOk);
 
-		verify(backgroundServiceId, times(1)).getByUUID(eq(uuid));
+		verify(backgroundServiceId, times(1)).getByUUID(uuid);
 
 		final var durationCaptor = ArgumentCaptor.forClass(Duration.class);
 		verify(backgroundService, times(1)).setTimedInterval(durationCaptor.capture());
@@ -127,7 +126,7 @@ class JobKitActionControllerTest {
 		        .headers(baseHeaders))
 		        .andExpect(statusOk);
 
-		verify(backgroundServiceId, times(1)).getByUUID(eq(uuid));
+		verify(backgroundServiceId, times(1)).getByUUID(uuid);
 
 		final var priorityCaptor = ArgumentCaptor.forClass(Integer.class);
 		verify(backgroundService, times(1)).setPriority(priorityCaptor.capture());
@@ -141,7 +140,7 @@ class JobKitActionControllerTest {
 		        .headers(baseHeaders))
 		        .andExpect(statusOk);
 
-		verify(backgroundServiceId, times(1)).getByUUID(eq(uuid));
+		verify(backgroundServiceId, times(1)).getByUUID(uuid);
 
 		final var factorCaptor = ArgumentCaptor.forClass(Double.class);
 		verify(backgroundService, times(1)).setRetryAfterTimeFactor(factorCaptor.capture());
@@ -187,7 +186,7 @@ class JobKitActionControllerTest {
 		final var builder = put(baseMapping + "/" + uuid + "/" + "enable");
 		assertThrows(NestedServletException.class, () -> mvc.perform(builder));
 
-		verify(backgroundServiceId, times(1)).getByUUID(eq(uuid));
+		verify(backgroundServiceId, times(1)).getByUUID(uuid);
 		verify(backgroundService, never()).enable();
 	}
 
@@ -200,7 +199,7 @@ class JobKitActionControllerTest {
 		        .andExpect(status().isNotFound())
 		        .andExpect(content().contentType(APPLICATION_JSON_VALUE));
 
-		verify(backgroundServiceId, times(1)).getByUUID(eq(uuid));
+		verify(backgroundServiceId, times(1)).getByUUID(uuid);
 		verify(backgroundService, never()).enable();
 	}
 

@@ -73,7 +73,7 @@ class BackgroundServiceEventTest {
 		verifyScheduleNextBackgroundServiceTask(times(0));
 		service.enable();
 
-		verify(event, times(1)).scheduleNextBackgroundServiceTask(eq(name), eq(spoolName), eq(0), eq(interval));
+		verify(event, times(1)).scheduleNextBackgroundServiceTask(name, spoolName, 0, interval);
 
 		latch.countDown();
 		verifyScheduleNextBackgroundServiceTask(times(1));
@@ -91,7 +91,7 @@ class BackgroundServiceEventTest {
 
 		Thread.sleep(10 * interval);// NOSONAR
 
-		verify(event, atLeast(1)).nextBackgroundServiceTask(eq(name), eq(spoolName), eq(0));
+		verify(event, atLeast(1)).nextBackgroundServiceTask(name, spoolName, 0);
 	}
 
 	@Test
@@ -104,12 +104,12 @@ class BackgroundServiceEventTest {
 
 		Thread.sleep(10 * interval);// NOSONAR
 
-		verify(event, atLeast(1)).planNextExec(eq(name), eq(spoolName), eq(interval));
+		verify(event, atLeast(1)).planNextExec(name, spoolName, interval);
 
 		error.set(new RuntimeException("This is a test error"));
 		Thread.sleep(10 * interval);// NOSONAR
 
-		verify(event, atLeast(1)).planNextExec(eq(name), eq(spoolName), eq(interval));
+		verify(event, atLeast(1)).planNextExec(name, spoolName, interval);
 
 		service.setRetryAfterTimeFactor(2);
 		Thread.sleep(10 * interval);// NOSONAR
@@ -128,7 +128,7 @@ class BackgroundServiceEventTest {
 		error.set(new RuntimeException("This is a test error"));
 		Thread.sleep(10 * interval);// NOSONAR
 
-		verify(event, atLeast(1)).onPreviousRunWithError(eq(name), eq(spoolName), eq(error.get()));
+		verify(event, atLeast(1)).onPreviousRunWithError(name, spoolName, error.get());
 	}
 
 	@Test
@@ -139,7 +139,7 @@ class BackgroundServiceEventTest {
 		verifyOnChangeTimedInterval(times(1));
 		service.setTimedInterval(interval * 2, TimeUnit.MILLISECONDS);
 
-		verify(event, times(1)).onChangeTimedInterval(eq(name), eq(spoolName), eq(interval * 2));
+		verify(event, times(1)).onChangeTimedInterval(name, spoolName, interval * 2);
 
 		service.disable();
 
@@ -147,7 +147,7 @@ class BackgroundServiceEventTest {
 
 		service.setTimedInterval(interval * 3, TimeUnit.MILLISECONDS);
 
-		verify(event, times(1)).onChangeTimedInterval(eq(name), eq(spoolName), eq(interval * 3));
+		verify(event, times(1)).onChangeTimedInterval(name, spoolName, interval * 3);
 	}
 
 	@Test

@@ -2,7 +2,6 @@ package tv.hd3g.jobkit.engine.status;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 import java.util.Random;
@@ -50,7 +49,7 @@ class BackgroundServiceStatusTest {
 		task = String.valueOf(random.nextLong());
 
 		when(backgroundService.isEnabled()).thenReturn(enabled);
-		when(backgroundService.getTimedInterval(eq(MILLISECONDS))).thenReturn(timedInterval);
+		when(backgroundService.getTimedInterval(MILLISECONDS)).thenReturn(timedInterval);
 		when(backgroundService.getPriority()).thenReturn(priority);
 		when(backgroundService.getRetryAfterTimeFactor()).thenReturn(retryAfterTimeFactor);
 
