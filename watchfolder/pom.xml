@@ -10,7 +10,7 @@
     <parent>
         <groupId>tv.hd3g</groupId>
         <artifactId>jobkit-starter</artifactId>
-        <version>5.1.2-SNAPSHOT</version>
+        <version>5.1.2</version>
     </parent>
 
     <dependencies>
@@ -27,7 +27,7 @@
         <dependency>
             <groupId>tv.hd3g</groupId>
             <artifactId>jobkit-engine</artifactId>
-            <version>5.1.2-SNAPSHOT</version>
+            <version>5.1.2</version>
         </dependency>
     </dependencies>
 </project>
