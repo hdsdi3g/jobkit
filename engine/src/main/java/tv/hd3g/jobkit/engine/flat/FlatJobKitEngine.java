@@ -79,8 +79,12 @@ public class FlatJobKitEngine extends JobKitEngine {
 	@Override
 	public boolean runOneShot(final Job job) {
 		job.onJobStart();
-		job.run();
-		job.onJobDone();
+		try {
+			job.run();
+			job.onJobDone();
+		} catch (final Exception e) {
+			job.onJobFail(e);
+		}
 		return true;
 	}
 
@@ -90,8 +94,12 @@ public class FlatJobKitEngine extends JobKitEngine {
 	                          final int priority,
 	                          final Runnable task,
 	                          final Consumer<Exception> afterRunCommand) {
-		task.run();
-		afterRunCommand.accept(null);
+		try {
+			task.run();
+			afterRunCommand.accept(null);
+		} catch (final Exception e) {
+			afterRunCommand.accept(e);
+		}
 		return true;
 	}
 

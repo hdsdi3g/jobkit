@@ -26,6 +26,7 @@ import static org.mockito.Mockito.verify;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -124,6 +125,42 @@ class FlatJobKitEngineTest {
 		verify(job, Mockito.times(1)).onJobDone();
 		verify(job, Mockito.times(1)).run();
 		verify(job, Mockito.times(0)).onJobFail(ArgumentMatchers.any(Exception.class));
+	}
+
+	@Test
+	void testRunOneShot_error() {
+		final var i = new AtomicInteger();
+		final var j = new AtomicInteger();
+		final var runtimeException = new RuntimeException("A bad thing, but for test purpose only");
+
+		task = () -> {
+			i.getAndIncrement();
+			throw runtimeException;
+		};
+		final var eR = new AtomicReference<Exception>();
+		final Consumer<Exception> afterRunCommand = e -> {
+			eR.set(e);
+			j.getAndIncrement();
+		};
+
+		assertTrue(jobKitEngine.runOneShot(null, null, 0, task, afterRunCommand));
+		assertEquals(1, i.get());
+		assertEquals(1, j.get());
+		assertEquals(runtimeException, eR.get());
+	}
+
+	@Test
+	void testRunOneShotJob_error() {
+		final var job = Mockito.mock(Job.class);
+		final var runtimeException = new RuntimeException("A bad thing, but for test purpose only");
+		Mockito.doThrow(runtimeException).when(job).run();
+
+		assertTrue(jobKitEngine.runOneShot(job));
+
+		verify(job, Mockito.times(1)).onJobStart();
+		verify(job, Mockito.times(0)).onJobDone();
+		verify(job, Mockito.times(1)).run();
+		verify(job, Mockito.times(1)).onJobFail(runtimeException);
 	}
 
 }
