@@ -10,14 +10,14 @@
     <parent>
         <groupId>tv.hd3g</groupId>
         <artifactId>jobkit-starter</artifactId>
-        <version>5.1.2</version>
+        <version>5.2.0-SNAPSHOT</version>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>tv.hd3g</groupId>
             <artifactId>jobkit-engine</artifactId>
-            <version>5.1.2</version>
+            <version>5.2.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>tv.hd3g.commons</groupId>
