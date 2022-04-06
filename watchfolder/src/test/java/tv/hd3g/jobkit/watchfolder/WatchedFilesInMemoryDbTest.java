@@ -356,4 +356,26 @@ class WatchedFilesInMemoryDbTest {
 		assertEquals(5, watchedFilesDb.getMaxDeep());
 	}
 
+	@Test
+	void testReset() {
+		watchedFilesDb.setup(observedFolder, FILES_ONLY);
+
+		write("thisfine.ok", "thisnotfine.no", "/whysubdir/thisfine.ok", "ignoreme.ok");
+		var w = watchedFilesDb.update(fs);
+		assertWatchedFiles(w, Set.of(), Set.of(), 1);
+		w = watchedFilesDb.update(fs);
+		assertWatchedFiles(w, Set.of("thisfine.ok"), Set.of(), 1);
+
+		watchedFilesDb.reset(w.getFounded());
+
+		w = watchedFilesDb.update(fs);
+		assertWatchedFiles(w, Set.of(), Set.of(), 1);
+		w = watchedFilesDb.update(fs);
+		assertWatchedFiles(w, Set.of("thisfine.ok"), Set.of(), 1);
+		w = watchedFilesDb.update(fs);
+		assertWatchedFiles(w, Set.of(), Set.of(), 1);
+		w = watchedFilesDb.update(fs);
+		assertWatchedFiles(w, Set.of(), Set.of(), 1);
+	}
+
 }

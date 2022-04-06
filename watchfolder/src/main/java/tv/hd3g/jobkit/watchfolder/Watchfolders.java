@@ -19,6 +19,7 @@ package tv.hd3g.jobkit.watchfolder;
 import static java.time.temporal.ChronoUnit.MILLIS;
 import static java.util.stream.Collectors.toUnmodifiableList;
 import static java.util.stream.Collectors.toUnmodifiableMap;
+import static tv.hd3g.jobkit.watchfolder.RetryScanPolicyOnUserError.RETRY_FOUNDED_FILE;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -83,7 +84,7 @@ public class Watchfolders {
 		                }));
 	}
 
-	private final Consumer<Exception> onOneShotError = e -> {
+	final Consumer<Exception> justLogAfterBadUserRun = e -> {
 		if (e != null) {
 			log.error("Can't send event", e);
 		}
@@ -95,13 +96,29 @@ public class Watchfolders {
 
 			log.trace("Start Watchfolder scan for {} :: {}", label, fs);
 			jobKitEngine.runOneShot("Watchfolder start dir scan for " + label, spoolEvents, 0,
-			        () -> eventActivity.onBeforeScan(folder), onOneShotError);
+			        () -> eventActivity.onBeforeScan(folder), justLogAfterBadUserRun);
 			final var startTime = System.currentTimeMillis();
 			final var scanResult = wfDBForFolder.get(folder).update(fs);
 			final var scanTime = Duration.of(System.currentTimeMillis() - startTime, MILLIS);
 
 			jobKitEngine.runOneShot("On event on watchfolder scan for " + getWFName(), spoolEvents, 0,
-			        () -> eventActivity.onAfterScan(folder, scanTime, scanResult), onOneShotError);
+			        () -> eventActivity.onAfterScan(folder, scanTime, scanResult),
+			        e -> {
+				        if (e == null) {
+					        return;
+				        }
+				        final var policy = eventActivity.retryScanPolicyOnUserError(folder, scanResult, e);
+				        final var founded = scanResult.getFounded();
+				        if (founded.isEmpty() == false) {
+					        log.error("Can't process user event of onAfterScan ({} founded), policy is {}",
+					                founded.size(), policy, e);
+					        if (policy == RETRY_FOUNDED_FILE) {
+						        wfDBForFolder.get(folder).reset(founded);
+					        }
+				        } else {
+					        log.error("Can't process user event of onAfterScan", e);
+				        }
+			        });
 			log.trace("Ends Watchfolder scan for {} :: {}", label, fs);
 		} catch (final IOException e) {
 			throw new UncheckedIOException(e);
@@ -132,7 +149,7 @@ public class Watchfolders {
 					        log.error("Problem during scan with {}, cancel scans for it", oF.getLabel(), e);
 					        jobKitEngine.runOneShot("Problem during scan with watchfolder " + oF.getLabel(),
 					                spoolEvents, 0,
-					                () -> eventActivity.onScanErrorFolder(oF, e), onOneShotError);
+					                () -> eventActivity.onScanErrorFolder(oF, e), justLogAfterBadUserRun);
 					        return true;
 				        }
 			        }).collect(toUnmodifiableList());
@@ -148,7 +165,7 @@ public class Watchfolders {
 		        () -> {
 			        eventActivity.onStartScans(observedFolders);
 			        service.enable();
-		        }, onOneShotError);
+		        }, justLogAfterBadUserRun);
 	}
 
 	/**

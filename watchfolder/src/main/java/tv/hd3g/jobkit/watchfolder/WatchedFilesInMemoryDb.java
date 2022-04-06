@@ -83,6 +83,11 @@ public class WatchedFilesInMemoryDb implements WatchedFilesDb {
 	}
 
 	@Override
+	public void reset(final Set<CachedFileAttributes> foundedFiles) {
+		foundedFiles.forEach(allWatchedFiles::remove);
+	}
+
+	@Override
 	public WatchedFiles update(final AbstractFileSystemURL fileSystem) {
 		final var detected = new HashSet<CachedFileAttributes>();
 		actualScan(fileSystem.getRootPath(), maxDeep, detected);

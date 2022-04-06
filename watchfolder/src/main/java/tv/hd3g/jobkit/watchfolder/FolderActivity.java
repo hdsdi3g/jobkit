@@ -41,4 +41,10 @@ public interface FolderActivity {
 	default void onScanErrorFolder(final ObservedFolder observedFolder, final Exception e) {
 	}
 
+	default RetryScanPolicyOnUserError retryScanPolicyOnUserError(final ObservedFolder observedFolder,
+	                                                              final WatchedFiles scanResult,
+	                                                              final Exception e) {
+		return RetryScanPolicyOnUserError.RETRY_FOUNDED_FILE;
+	}
+
 }

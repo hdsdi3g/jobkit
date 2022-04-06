@@ -16,11 +16,16 @@
  */
 package tv.hd3g.jobkit.watchfolder;
 
+import java.util.Set;
+
 import tv.hd3g.transfertfiles.AbstractFileSystemURL;
+import tv.hd3g.transfertfiles.CachedFileAttributes;
 
 public interface WatchedFilesDb {
 
 	void setup(final ObservedFolder observedFolder, final WatchFolderPickupType pickUp);
 
 	WatchedFiles update(AbstractFileSystemURL fileSystem);
+
+	void reset(Set<CachedFileAttributes> foundedFiles);
 }
