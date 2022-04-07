@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
@@ -121,6 +122,9 @@ class WatchfoldersTest {
 		verify(folderActivity, times(1)).onScanErrorFolder(eq(observedFolder), any(Exception.class));
 
 		verify(folderActivity, times(1)).getPickUpType(observedFolder);
+		verify(folderActivity, atMostOnce()).onBeforeScan(observedFolder);
+		verify(folderActivity, atMostOnce()).onAfterScan(eq(observedFolder), any(Duration.class), eq(watchedFiles));
+		verify(watchedFilesDb, atMostOnce()).update(any(AbstractFileSystemURL.class));
 	}
 
 	@Test
